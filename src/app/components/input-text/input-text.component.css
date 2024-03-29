@@ -1,0 +1,39 @@
+.input-text {
+  position: relative;
+  width: 100%;
+}
+
+input {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--black-third);
+  font-size: 1.1rem;
+  padding: 12px 0;
+  transition: border .2s linear;
+}
+
+input::placeholder {
+  color: var(--black-third);
+  background: none;
+  opacity: 1;
+  filter: none;
+}
+
+input:focus {
+  outline: none;
+  border-bottom: 1px solid gold;
+}
+
+.label-ico {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 18px;
+  cursor: pointer;
+}
+
+.ico {
+  color: white;
+}

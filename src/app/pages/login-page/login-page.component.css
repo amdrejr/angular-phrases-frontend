@@ -1,0 +1,25 @@
+.login-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-login {
+  padding: 50px;
+  border: 1px solid var(--black-second);
+  border-radius: 30px;
+  box-shadow: 15px 5px 40px var(--black-second);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
