@@ -1,7 +1,9 @@
+import { User } from "./user";
+
 export interface Phrase {
   id: number;
   text: string;
-  username: string;
+  author: User;
   date: string;
   likes: number;
 }

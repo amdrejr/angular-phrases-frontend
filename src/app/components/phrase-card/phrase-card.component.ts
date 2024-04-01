@@ -1,31 +1,24 @@
 import { Component, Input } from '@angular/core';
-import { User } from '../../models/user';
+import { MatIconModule } from '@angular/material/icon';
+import { Phrase } from '../../models/phrase';
 
 @Component({
   selector: 'app-phrase-card',
   standalone: true,
-  imports: [],
+  imports: [
+    MatIconModule
+  ],
   templateUrl: './phrase-card.component.html',
   styleUrl: './phrase-card.component.css'
 })
 export class PhraseCardComponent {
   @Input() phrase: Phrase = {
-    id: 0,
-    text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    author: {
-      id: 0,
-      username: 'John Doe',
-      phrases: []
-    },
-    date: '10/10/2021',
-    likes: 49
+    id: 2,
+    text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
+    author: {id: 2, username: 'master2UserFinal', phrases: []},
+    date: '2021-01-01',
+    likes: 22,
   };
 }
 
-interface Phrase {
-  id: number;
-  text: string;
-  author: User;
-  date: string;
-  likes: number;
-}
+

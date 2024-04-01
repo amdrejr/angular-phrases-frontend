@@ -1,7 +1,16 @@
-<article>
-  <header>
-    <a class="author">{{phrase.author.username}}</a>
-    <span class="date">{{phrase.date}}</span>
-  </header>
-  <p>{{phrase.text}}</p>
+<article class="phrase-card">
+  <img src="assets/images/profile.png" class="img-profile" alt="avatar" />
+  <main class="content">
+    <header class="info">
+      <a class="author">{{phrase.author.username}}</a>
+      <span class="date">{{phrase.date}}</span>
+    </header>
+    <p class="phrase">{{phrase.text}}</p>
+    <span class="like-box">
+      <button class="btn-like">
+        <mat-icon aria-hidden="false" fontIcon="thumb_up" />
+      </button>
+      <span>{{phrase.likes}}</span>
+    </span>
+  </main>
 </article>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { LogoTextComponent } from '../../components/logo-text/logo-text.component';
 import { PhraseCardComponent } from '../../components/phrase-card/phrase-card.component';
 
@@ -9,6 +9,8 @@ import { PhraseCardComponent } from '../../components/phrase-card/phrase-card.co
   standalone: true,
   imports: [
     RouterOutlet,
+    RouterLink, // redirecionar
+    RouterLinkActive, // ativar link (add classe css)
     MatIconModule,
     LogoTextComponent,
     PhraseCardComponent

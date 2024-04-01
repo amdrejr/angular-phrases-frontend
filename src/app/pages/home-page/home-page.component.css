@@ -3,7 +3,6 @@
   height: 100%;
 }
 
-
 @media screen and (max-width: 768px){
   header {
     border-bottom: 1px solid var(--black-third);
@@ -25,6 +24,7 @@
   }
 
   .header-link {
+    position: relative;
     text-decoration: none;
     text-align: center;
     display: inline-block;
@@ -33,17 +33,29 @@
     font-size: 1rem;
     cursor: pointer;
     color: var(--black-fourth);
-    transition: background-color .3s;
   }
 
   .header-link:hover {
     background-color: var(--black-third);
+    color: white;
   }
 
   .header-link.active {
-    color: white;
+    color: var(--white-first);
     font-weight: bold;
-    border-bottom: 3px solid var(--primary-color);
+  }
+
+  .header-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translateX(50%);
+    width: 50%;
+    height: 5px;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    /* border-bottom: 3px solid var(--primary-color); */
   }
 
   footer {

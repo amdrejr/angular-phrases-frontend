@@ -1,0 +1,58 @@
+.phrase-card {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  border-bottom: 1px solid var(--black-third);
+  font-size: 1rem;
+}
+
+.img-profile {
+  display: inline-block;
+  background-color: white;
+  border-radius: 50%;
+  padding: clamp(.06em, .4vw, .5em);
+  width: clamp(40px, 12vw, 80px);
+  height: clamp(40px, 12vw, 80px);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.author {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.date {
+  color: var(--black-fourth);
+}
+
+.phrase {
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.like-box {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: flex-end;
+  font-weight: bold;
+}
+
+.btn-like {
+  appearance: none;
+  border: none;
+  background-color: transparent;
+}
+

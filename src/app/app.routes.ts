@@ -11,6 +11,21 @@ export const routes: Routes = [
     path: 'home',
     loadComponent: () => import('./pages/home-page/home-page.component').then(m => m.HomePageComponent),
     // canActivate: [canActivateGuard]
+    children: [
+      {
+        path: '',
+        redirectTo: 'for-you',
+        pathMatch: 'full'
+      },
+      {
+        path: 'for-you',
+        loadComponent: () => import('./components/list-for-you/list-for-you.component').then(m => m.ListForYouComponent)
+      },
+      {
+        path: 'following',
+        loadComponent: () => import('./components/list-following/list-following.component').then(m => m.ListFollowingComponent)
+      }
+    ]
   },
   {
     path: 'sign-up',
