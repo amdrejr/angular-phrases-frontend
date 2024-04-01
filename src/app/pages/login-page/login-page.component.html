@@ -2,7 +2,14 @@
   <form action="" class="form-login">
     <h2 class="title">Welcome to <app-logo-text>Phrases</app-logo-text></h2>
     <p class="subtitle">Please, login to continue</p>
-    <app-input-text label="User" type="text"/>
+    <app-input-text label="User" type="username"/>
     <app-input-text label="Password" type="password" />
+      <app-input-checkbox style="margin: 5px 0;">Remember me</app-input-checkbox>
+    <app-button-text>Login</app-button-text>
+
+    <div class="create-account">
+      <span>or</span>
+      <app-text-button (onClick)="redirectToSignUp()">Create Account</app-text-button>
+    </div>
   </form>
 </main>

@@ -1,0 +1,59 @@
+.home-page {
+  width: 100%;
+  height: 100%;
+}
+
+
+@media screen and (max-width: 768px){
+  header {
+    border-bottom: 1px solid var(--black-third);
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    font-size: 2.5rem;
+  }
+
+  .ico {
+    font-size: 2.5rem;
+    width: 40px;
+    height: 40px;
+    padding-top: 3px;
+  }
+
+  .header-link {
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    width: 50%;
+    padding: 25px 0;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--black-fourth);
+    transition: background-color .3s;
+  }
+
+  .header-link:hover {
+    background-color: var(--black-third);
+  }
+
+  .header-link.active {
+    color: white;
+    font-weight: bold;
+    border-bottom: 3px solid var(--primary-color);
+  }
+
+  footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    border-top: 1px solid var(--black-third);
+  }
+}

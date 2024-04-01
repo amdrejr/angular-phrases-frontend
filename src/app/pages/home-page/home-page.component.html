@@ -1,1 +1,21 @@
-<p>home-page works!</p>
+<main class="home-page">
+  <header>
+    <div class="header-top">
+      <app-logo-text>Phrases</app-logo-text>
+      <mat-icon class="ico" fontIcon="account_circle" />
+    </div>
+    <div class="header-bottom">
+      <a class="header-link" routerLink="/home" routerLinkActive="active">Home</a>
+      <a class="header-link" routerLink="/home/following" routerLinkActive="active">Following</a>
+    </div>
+  </header>
+  <section class="phrases-container">
+    <router-outlet></router-outlet>
+    <app-phrase-card></app-phrase-card>
+  </section>
+  <footer>
+    <mat-icon class="ico" fontIcon="home" />
+    <mat-icon class="ico" fontIcon="add" />
+    <mat-icon class="ico" fontIcon="search" />
+  </footer>
+</main>

@@ -2,5 +2,19 @@
   font-family: "Lobster", sans-serif;
   font-weight: 400;
   font-style: normal;
-  text-shadow: .08em .08em 0px red, .16em .16em 0px #ff000085, .24em .24em 0px #ff000038
+  text-shadow: .08em .08em 0px red, .16em .16em 0px #ff000085, .24em .24em 0px #ff000038;
+  /* animation: anime 2s infinite alternate; */
+}
+
+
+@keyframes anime {
+  0% {
+    color: rgb(255, 0, 0);
+    text-shadow: -.08em -.08em 0px white, -.16em -.16em 0px #ffffff85, -.24em -.24em 0px #ffffff35;
+  }
+  100% {
+    color: white;
+    text-shadow: .08em .08em 0px red, .16em .16em 0px #ff000085, .24em .24em 0px #ff000038;
+  }
+
 }

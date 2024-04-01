@@ -1,15 +1,18 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-input-text',
   standalone: true,
-  imports: [],
+  imports: [
+    MatIconModule
+  ],
   templateUrl: './input-text.component.html',
   styleUrl: './input-text.component.css'
 })
 export class InputTextComponent {
   @Input({required: true})
-  type:"text" | "email" | "password" | "username" = 'text';
+  type:"text" | "email" | "username" | "password" = 'text';
   @Input()
   label: string = '';
   @Output()

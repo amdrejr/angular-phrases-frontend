@@ -1,6 +1,15 @@
 <div class="input-text">
   <input
     id="input{{componentId}}"
-    [type]="type" [placeholder]="label"
+    [type]="type == 'username' ? 'text' : type" [placeholder]="label"
   >
+  <label for="input{{componentId}}"  class="label-ico">
+    @switch (type) {
+      @case ('email') {<mat-icon aria-hidden="false" fontIcon="alternate_email" />}
+      @case ('username') {<mat-icon aria-hidden="false" fontIcon="person" />}
+      @case ('text') {<mat-icon aria-hidden="false" fontIcon="text_fields" />}
+      @case ('password') {<mat-icon aria-hidden="false" fontIcon="lock" />}
+      @default {<mat-icon aria-hidden="false" fontIcon="text_fields" />}
+    }
+  </label>
 </div>

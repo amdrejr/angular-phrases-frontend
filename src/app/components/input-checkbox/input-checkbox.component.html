@@ -1,0 +1,12 @@
+<div class="input-checkbox">
+  <input
+    type="checkbox"
+    name="check"
+    id="input{{componentId}}"
+    [(ngModel)]="checked"
+    (ngModelChange)="checkedOnChange.emit($event)"
+  >
+  <label for="input{{componentId}}">
+    <ng-content></ng-content>
+  </label>
+</div>

@@ -1,4 +1,4 @@
-.login-page {
+.sign-up {
   width: 100%;
   height: 100%;
   display: flex;
@@ -8,7 +8,9 @@
   font-size: 1rem;
 }
 
-.form-login {
+.form-sign-up {
+  width: 100%;
+  max-width: 500px;
   padding: 50px;
   border: 1px solid var(--black-second);
   border-radius: 30px;
@@ -16,19 +18,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
+  gap: 16px;
 }
 
 .title {
   font-size: 3rem;
   font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-.create-account {
-  margin-top: 25px;
+  margin-bottom: 1.1rem;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
 }
