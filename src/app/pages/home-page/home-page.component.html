@@ -1,21 +1,37 @@
 <main class="home-page">
   <header>
     <div class="header-top">
-      <app-logo-text>Phrases</app-logo-text>
-      <mat-icon class="ico" fontIcon="account_circle" />
-    </div>
-    <div class="header-bottom">
-      <a class="header-link" routerLink="for-you" routerLinkActive="active">For you</a>
-      <a class="header-link" routerLink="following" routerLinkActive="active">Following</a>
+      <app-logo-text class="logo">Phrases</app-logo-text>
+      <app-logo-text class="middle-size">P</app-logo-text>
+      <div class="ico-box desktop">
+        <mat-icon class="ico desktop" fontIcon="home" />
+        <span class="ico-text">Home</span>
+      </div>
+      <div class="ico-box">
+        <mat-icon class="ico" fontIcon="account_circle" />
+        <span class="ico-text">Profile</span>
+      </div>
+      <div class="ico-box desktop">
+        <mat-icon class="ico" fontIcon="search" />
+        <span class="ico-text">Search</span>
+      </div>
+      <button class="post-btn desktop">Post</button>
+      <button  (click)="openPostModal()" class="post-btn middle-size">
+        <mat-icon class="ico" fontIcon="add" />
+      </button>
     </div>
   </header>
+  <nav class="navbar">
+    <a class="nav-link" routerLink="for-you" routerLinkActive="active">For you</a>
+    <a class="nav-link" routerLink="following" routerLinkActive="active">Following</a>
+  </nav>
   <section class="phrases-container">
     <router-outlet></router-outlet>
     <!-- <app-phrase-card></app-phrase-card> -->
   </section>
-  <footer>
+  <aside class="mobile-btns">
     <mat-icon class="ico" fontIcon="home" />
     <mat-icon class="ico" fontIcon="add" />
     <mat-icon class="ico" fontIcon="search" />
-  </footer>
+  </aside>
 </main>
