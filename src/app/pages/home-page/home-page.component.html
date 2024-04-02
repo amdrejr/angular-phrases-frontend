@@ -15,7 +15,7 @@
         <mat-icon class="ico" fontIcon="search" />
         <span class="ico-text">Search</span>
       </div>
-      <button class="post-btn desktop">Post</button>
+      <button (click)="openPostModal()" class="post-btn desktop">Post</button>
       <button  (click)="openPostModal()" class="post-btn middle-size">
         <mat-icon class="ico" fontIcon="add" />
       </button>
@@ -27,7 +27,6 @@
   </nav>
   <section class="phrases-container">
     <router-outlet></router-outlet>
-    <!-- <app-phrase-card></app-phrase-card> -->
   </section>
   <aside class="mobile-btns">
     <mat-icon class="ico" fontIcon="home" />

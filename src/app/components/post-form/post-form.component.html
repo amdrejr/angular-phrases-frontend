@@ -1,13 +1,13 @@
-<div>
-  <form>
-    <div class="form-group">
-      <label for="title">Title</label>
-      <input type="text" class="form-control" id="title" formControlName="title">
-    </div>
-    <div class="form-group">
-      <label for="body">Body</label>
-      <textarea class="form-control" id="body" formControlName="body"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-</div>
+<form action="">
+  <div class="top">
+    <button (click)="close()" class="close-btn">
+      <mat-icon class="ico" fontIcon="close" />
+    </button>
+    <span>Post a phrase</span>
+  </div>
+  <div class="container">
+    <img src="assets/images/profile.png" class="img-profile" alt="avatar" />
+    <textarea name="textarea-phrase" maxlength="250" [(ngModel)]="postContent"></textarea>
+  </div>
+  <app-button-text (onClick)="emitEvent()">Post</app-button-text>
+</form>

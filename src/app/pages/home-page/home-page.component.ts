@@ -25,11 +25,6 @@ export class HomePageComponent {
   constructor(public dialog: MatDialog) { }
 
   openPostModal(): void {
-    console.log('Abrindo modal');
-    const dialogRef = this.dialog.open(PostFormComponent);
-
-    dialogRef.afterClosed().subscribe(() => {
-      console.log('O modal foi fechado');
-    });
+    this.dialog.open(PostFormComponent);
   }
 }
