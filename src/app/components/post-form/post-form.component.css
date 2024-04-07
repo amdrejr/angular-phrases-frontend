@@ -1,7 +1,8 @@
 form {
   padding: 15px;
   width: 100%;
-  background-color: var(--black-third);
+  background-color: black;
+  border: none;
   display: flex;
   flex-direction: column;
   gap: 15px;

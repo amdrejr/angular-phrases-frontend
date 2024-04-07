@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
+import { canActivateGuard } from './security/authguard/authguard';
 
 export const routes: Routes = [
   {
@@ -10,7 +11,7 @@ export const routes: Routes = [
   {
     path: 'home',
     loadComponent: () => import('./pages/home-page/home-page.component').then(m => m.HomePageComponent),
-    // canActivate: [canActivateGuard]
+    canActivate: [canActivateGuard],
     children: [
       {
         path: '',
@@ -19,11 +20,19 @@ export const routes: Routes = [
       },
       {
         path: 'for-you',
-        loadComponent: () => import('./components/list-for-you/list-for-you.component').then(m => m.ListForYouComponent)
+        loadComponent: () => import('./pages/home-page/components/list-for-you/list-for-you.component').then(m => m.ListForYouComponent)
       },
       {
         path: 'following',
-        loadComponent: () => import('./components/list-following/list-following.component').then(m => m.ListFollowingComponent)
+        loadComponent: () => import('./pages/home-page/components/list-following/list-following.component').then(m => m.ListFollowingComponent)
+      },
+      {
+        path: 'profile',
+        loadComponent: () => import('./pages/home-page/components/profile/profile.component').then(m => m.ProfileComponent)
+      },
+      {
+        path: 'search',
+        loadComponent: () => import('./pages/home-page/components/search/search.component').then(m => m.SearchComponent)
       }
     ]
   },

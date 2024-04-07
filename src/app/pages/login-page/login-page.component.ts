@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonTextComponent } from '../../components/button-text/button-text.component';
 import { InputCheckboxComponent } from '../../components/input-checkbox/input-checkbox.component';
 import { InputTextComponent } from '../../components/input-text/input-text.component';
 import { LogoTextComponent } from '../../components/logo-text/logo-text.component';
 import { TextButtonComponent } from '../../components/text-button/text-button.component';
+import { LoginService } from '../../services/login-service/login.service';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
   imports: [
+    FormsModule,
     InputTextComponent,
     LogoTextComponent,
     InputCheckboxComponent,
@@ -20,10 +23,34 @@ import { TextButtonComponent } from '../../components/text-button/text-button.co
   styleUrl: './login-page.component.css'
 })
 export class LoginPageComponent {
+  username: string = '';
+  password: string = '';
+  isEmpty: boolean = false;
+  errorMessage: string = '';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private loginService: LoginService) { }
 
   redirectToSignUp(): void {
     this.router.navigate(['/sign-up']);
+  }
+
+  login(): void {
+    if(!this.username || !this.password) {
+      this.isEmpty = true;
+      return;
+    }
+
+    this.loginService.login(this.username, this.password).subscribe({
+      next: (data) => {
+        localStorage.setItem('token', data.token);
+      },
+      complete: () => {
+        this.router.navigate(['/home']);
+      },
+      error: (err) => {
+        console.log('ERROR Error:', err);
+        this.errorMessage = err.error.message;
+      },
+    });
   }
 }

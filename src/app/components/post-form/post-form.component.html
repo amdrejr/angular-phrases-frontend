@@ -7,7 +7,12 @@
   </div>
   <div class="container">
     <img src="assets/images/profile.png" class="img-profile" alt="avatar" />
-    <textarea name="textarea-phrase" maxlength="250" [(ngModel)]="postContent"></textarea>
+    <textarea
+      name="textarea-phrase"
+      maxlength="250"
+      [(ngModel)]="postContent"
+      placeholder="What's on your mind?"
+    ></textarea>
   </div>
   <app-button-text (onClick)="emitEvent()">Post</app-button-text>
 </form>

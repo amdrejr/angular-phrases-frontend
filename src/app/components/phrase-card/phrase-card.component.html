@@ -1,14 +1,18 @@
 <article class="phrase-card">
-  <img src="assets/images/profile.png" class="img-profile" alt="avatar" />
+  @if(!hidePhoto) {
+    <img src="assets/images/profile.png" class="img-profile" alt="avatar" />
+  }
   <main class="content">
     <header class="info">
-      <a class="author">{{phrase.author.username}}</a>
-      <span class="date">{{phrase.date}}</span>
+      @if(!hideAuthor) {
+        <a class="author">{{phrase.author}}</a>
+      }
+      <span class="date">{{dateFormatted}}</span>
     </header>
     <p class="phrase">{{phrase.text}}</p>
     <span class="like-box">
-      <button class="btn-like">
-        <mat-icon aria-hidden="false" fontIcon="thumb_up" />
+      <button class="btn-like" (click)="like()">
+        <mat-icon aria-hidden="true" fontIcon="thumb_up" [class]=" isLiked ? 'liked' : '' "/>
       </button>
       <span>{{phrase.likes}}</span>
     </span>

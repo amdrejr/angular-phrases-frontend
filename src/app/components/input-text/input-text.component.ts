@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-input-text',
   standalone: true,
   imports: [
+    FormsModule,
     MatIconModule
   ],
   templateUrl: './input-text.component.html',
@@ -12,7 +14,9 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class InputTextComponent {
   @Input({required: true})
-  type:"text" | "email" | "username" | "password" = 'text';
+  type:"text" | "email" | "username" | "password" | "number" = 'text';
+  @Input()
+  ico: string = '';
   @Input()
   label: string = '';
   @Output()

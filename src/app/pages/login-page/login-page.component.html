@@ -1,15 +1,26 @@
 <main class="login-page">
-  <form action="" class="form-login">
+  <form (ngSubmit)="login()" class="form-login">
     <h2 class="title">Welcome to <app-logo-text>Phrases</app-logo-text></h2>
     <p class="subtitle">Please, login to continue</p>
-    <app-input-text label="User" type="username"/>
-    <app-input-text label="Password" type="password" />
-      <app-input-checkbox style="margin: 5px 0;">Remember me</app-input-checkbox>
-    <app-button-text>Login</app-button-text>
+    <app-input-text label="Username" type="text" ico="person" (valueOnChange)="username = $event"/>
+    @if (isEmpty && !username) {
+      <span class="isEmpty">Please, enter your username!</span>
+    }
+    <app-input-text label="Password" type="password" ico="key" (valueOnChange)="password = $event"/>
+    @if (isEmpty && !password) {
+      <span class="isEmpty">Please, enter your password!</span>
+    }
+
+    <app-input-checkbox style="margin: 5px 0;">Remember me</app-input-checkbox>
+    <app-button-text type="submit">Login</app-button-text>
+
+    @if (errorMessage) {
+      <span class="errorMessage">{{errorMessage}}</span>
+    }
 
     <div class="create-account">
       <span>or</span>
-      <app-text-button (onClick)="redirectToSignUp()">Create Account</app-text-button>
+      <app-text-button style="margin: auto;" (onClick)="redirectToSignUp()">Create Account</app-text-button>
     </div>
   </form>
 </main>

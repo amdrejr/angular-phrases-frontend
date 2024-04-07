@@ -13,4 +13,6 @@ import { PhraseCardComponent } from '../phrase-card/phrase-card.component';
 })
 export class ListPhrasesComponent {
   @Input({required:true}) phrases: Phrase[] = [];
+  @Input() hideAuthor: boolean = false;
+  @Input() hidePhoto: boolean = false;
 }

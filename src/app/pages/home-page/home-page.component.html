@@ -3,18 +3,24 @@
     <div class="header-top">
       <app-logo-text class="logo">Phrases</app-logo-text>
       <app-logo-text class="middle-size">P</app-logo-text>
-      <div class="ico-box desktop">
-        <mat-icon class="ico desktop" fontIcon="home" />
-        <span class="ico-text">Home</span>
-      </div>
-      <div class="ico-box">
-        <mat-icon class="ico" fontIcon="account_circle" />
-        <span class="ico-text">Profile</span>
-      </div>
-      <div class="ico-box desktop">
-        <mat-icon class="ico" fontIcon="search" />
-        <span class="ico-text">Search</span>
-      </div>
+      <a class="ico-link desktop" routerLink="home">
+        <div class="ico-box">
+          <mat-icon class="ico desktop" fontIcon="home" />
+          <span class="ico-text">Home</span>
+        </div>
+      </a>
+      <a class="ico-link" routerLink="profile">
+        <div class="ico-box">
+          <mat-icon class="ico" fontIcon="account_circle" />
+          <span class="ico-text">Profile</span>
+        </div>
+      </a>
+      <a class="ico-link desktop" routerLink="search">
+        <div class="ico-box">
+          <mat-icon class="ico" fontIcon="search" />
+          <span class="ico-text">Search</span>
+        </div>
+      </a>
       <button (click)="openPostModal()" class="post-btn desktop">Post</button>
       <button  (click)="openPostModal()" class="post-btn middle-size">
         <mat-icon class="ico" fontIcon="add" />
@@ -29,8 +35,14 @@
     <router-outlet></router-outlet>
   </section>
   <aside class="mobile-btns">
-    <mat-icon class="ico" fontIcon="home" />
-    <mat-icon class="ico" fontIcon="add" />
-    <mat-icon class="ico" fontIcon="search" />
+    <a routerLink="home">
+      <mat-icon class="ico" fontIcon="home" />
+    </a>
+    <app-text-button (onClick)="openPostModal()">
+      <mat-icon class="ico" fontIcon="add" />
+    </app-text-button>
+    <a routerLink="search">
+      <mat-icon class="ico" fontIcon="search" />
+    </a>
   </aside>
 </main>

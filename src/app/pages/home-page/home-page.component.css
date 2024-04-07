@@ -9,6 +9,11 @@
   border-bottom: none;
 }
 
+.ico-link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .navbar {
   position: sticky;
   top: 0;
@@ -149,12 +154,10 @@ header {
 
 }
 
-
 @media screen and (max-width: 950px){
   .desktop, .post-btn.middle-size, .middle-size {
     display: none;
   }
-
 
   header {
     position: static;

@@ -1,0 +1,28 @@
+<header>
+  <img src="assets/images/profile.png" class="img-profile" alt="avatar" />
+  <div class="name-box">
+    <span class="title">Username</span>
+    <h3 class="name">{{user.username}}</h3>
+    <span class="title">Total phrases: <strong class="enphasis">{{user.phrases.length}}</strong></span>
+    <br>
+    <span class="title">Total likes: <strong class="enphasis">{{totalLikes}}</strong></span>
+  </div>
+  <app-text-button (onClick)="logout()">
+    <div class="logout">
+      <span>Logout</span>
+      <mat-icon aria-hidden="false" fontIcon="logout" />
+    </div>
+  </app-text-button>
+</header>
+
+<main>
+  <h2>Your Phrases</h2>
+  @for (phrase of user.phrases; track $index) {
+    <div class="phrase-box">
+      <app-phrase-card [phrase]="phrase" [hideAuthor]="true" [hidePhoto]="true"/>
+      <app-text-button class="delete-btn">
+        <mat-icon class="ico" aria-hidden="false" fontIcon="delete" />
+      </app-text-button>
+    </div>
+  }
+</main>

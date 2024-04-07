@@ -1,0 +1,86 @@
+header {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  padding: 15px;
+  background-color: var(--black-second);
+  border-bottom: 1px solid var(--black-third);
+}
+
+.img-profile {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background-color: white;
+  padding: 3px;
+}
+
+.name-box {
+  padding-top: 5px;
+}
+
+.title {
+  font-size: 1rem;
+  color: var(--black-fourth);
+}
+
+.enphasis {
+  color: white;
+}
+
+.name {
+  margin: 10px 0;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.logout {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  gap: 10px;
+  color: var(--secondary-color);
+  right: 18px;
+  bottom: 18px;
+}
+
+/* */
+
+main h2 {
+  margin: 0;
+  padding: 20px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid var(--black-third);
+}
+
+.phrase-box {
+  padding-right: 10%;
+  position: relative;
+}
+
+.delete-btn {
+  width: 10%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--black-second);
+  border-bottom: 1px solid var(--black-third);
+}
+
+.ico  {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  color: var(--black-fourth);
+}
+
+.ico:hover {
+  color: var(--secondary-color);
+}
