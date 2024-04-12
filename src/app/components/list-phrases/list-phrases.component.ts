@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, signal } from '@angular/core';
 import { Phrase } from '../../models/phrase';
 import { PhraseCardComponent } from '../phrase-card/phrase-card.component';
 
@@ -11,8 +11,12 @@ import { PhraseCardComponent } from '../phrase-card/phrase-card.component';
   templateUrl: './list-phrases.component.html',
   styleUrl: './list-phrases.component.css'
 })
-export class ListPhrasesComponent {
-  @Input({required:true}) phrases: Phrase[] = [];
+export class ListPhrasesComponent implements OnInit {
+  @Input({required:true}) phrases = signal([] as Phrase[]);
   @Input() hideAuthor: boolean = false;
   @Input() hidePhoto: boolean = false;
+
+  constructor() { }
+
+  ngOnInit(): void { }
 }

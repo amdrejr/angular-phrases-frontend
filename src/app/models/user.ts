@@ -1,7 +1,13 @@
-import { Phrase } from "./phrase";
 
 export interface User {
   id: number;
   username: string;
-  phrases: Phrase[];
+  allFollowers: {
+    id: number;
+    username: string;
+  }[];
+  allFollowing: {
+    id: number;
+    username: string;
+  }[];
 }

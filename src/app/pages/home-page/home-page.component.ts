@@ -27,16 +27,7 @@ export class HomePageComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private userDataService: UserDataService) { }
 
-  ngOnInit(): void {
-    this.userDataService.getMyUserData().subscribe({
-      next: (data) => {
-        localStorage.setItem('userId', data.id.toString());
-      },
-      error: (err) => {
-        console.log('ERROR Error:', err);
-      },
-    });
-  }
+  ngOnInit(): void { }
 
   openPostModal(): void {
     this.dialog.open(PostFormComponent, {});

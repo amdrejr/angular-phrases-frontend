@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, WritableSignal, signal } from '@angular/core';
 import { User } from '../../models/user';
 
 @Injectable({
@@ -8,13 +7,32 @@ import { User } from '../../models/user';
 })
 export class UserDataService {
   private url: string = 'http://localhost:8080/users';
+  private actualUser: WritableSignal<User> =  signal({
+    username: 'loading...',
+    id: 0,
+    phrases: [],
+    allFollowers: [],
+    allFollowing: []
+  });
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.requestMyUserData();
+  }
 
-  getMyUserData(): Observable<User> {
-    return this.http.get<User>(
+  private requestMyUserData = ():void =>  {
+    this.http.get<User>(
       this.url + '/me',
       {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}}
+    ).subscribe(
+      (user: User) => {
+        localStorage.setItem('userId', user.id.toString());
+        this.actualUser.set(user);
+      }
     );
+  }
+
+  get me () {
+    this.requestMyUserData();
+    return this.actualUser;
   }
 }

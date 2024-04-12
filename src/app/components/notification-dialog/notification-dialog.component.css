@@ -1,0 +1,26 @@
+.notification-box {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+  width: 100%;
+  max-width: 255px;
+  height: auto;
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  background-color: var(--black-second);
+  box-shadow: 0 0 10px rgba(146, 146, 146, 0.1);
+}
+
+.notification-box h2 {
+  color: var(--black-fourth);
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+.notification-box span {
+  color: white;
+  font-size: 1rem;
+}

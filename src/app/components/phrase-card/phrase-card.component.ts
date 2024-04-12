@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Phrase } from '../../models/phrase';
 import { PhraseDataService } from '../../services/phrase-data/phrase-data.service';
@@ -12,7 +12,7 @@ import { PhraseDataService } from '../../services/phrase-data/phrase-data.servic
   templateUrl: './phrase-card.component.html',
   styleUrl: './phrase-card.component.css'
 })
-export class PhraseCardComponent {
+export class PhraseCardComponent implements OnInit {
   @Input() hideAuthor = false;
   @Input() hidePhoto = false;
 
@@ -20,12 +20,14 @@ export class PhraseCardComponent {
     id: 0,
     text: '',
     allUsersLiked: [],
-    author: 'teste',
+    author: { id: 0, username: '' },
     date: '',
     likes: 0,
   };
 
   constructor(private phraseDataService: PhraseDataService) { }
+  ngOnInit(): void {
+  }
 
   get dateFormatted(): string {
     const date = new Date(this.phrase.date);
@@ -37,14 +39,7 @@ export class PhraseCardComponent {
   }
 
   like(): void {
-    this.phraseDataService.likePhrase(this.phrase.id).subscribe({
-      next: (data) => {
-        this.phrase = data;
-      },
-      error: (err) => {
-        console.log('ERROR Error:', err);
-      },
-    });
+    this.phraseDataService.likePhrase(this.phrase.id).then(phrase => this.phrase = phrase);
   }
 
 }

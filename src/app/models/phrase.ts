@@ -5,5 +5,5 @@ export interface Phrase {
   date: string;
   allUsersLiked: {id: number, username: string}[];
   likes: number;
-  author: string;
+  author: {id: number, username: string};
 }

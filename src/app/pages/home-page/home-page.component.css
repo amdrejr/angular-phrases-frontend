@@ -17,8 +17,11 @@
 .navbar {
   position: sticky;
   top: 0;
+  z-index: 10;
   border-bottom: 1px solid var(--black-third);
-  background-color: rgba(0, 0, 0, 0.9);
+  text-shadow: 1px 1px 3px black;
+  background-color: rgba(0, 0, 0, 0.80);
+  backdrop-filter: blur(6px);
 }
 
 .nav-link {
@@ -54,7 +57,6 @@
   height: 5px;
   border-radius: 5px;
   background-color: var(--primary-color);
-  /* border-bottom: 3px solid var(--primary-color); */
 }
 
 .ico {
@@ -196,6 +198,8 @@ header {
     align-items: center;
     padding: 25px;
     border-top: 1px solid var(--black-third);
+    background-color: rgba(0, 0, 0, 0.80);
+    backdrop-filter: blur(6px);
   }
 
 }

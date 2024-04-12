@@ -5,7 +5,10 @@
   <main class="content">
     <header class="info">
       @if(!hideAuthor) {
-        <a class="author">{{phrase.author}}</a>
+        <div class="author-box">
+          <a class="author">{{phrase.author.username}}</a>
+          <button class="follow">FOLLOW</button>
+        </div>
       }
       <span class="date">{{dateFormatted}}</span>
     </header>

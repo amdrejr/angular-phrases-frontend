@@ -8,26 +8,31 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  private url: string = 'http://localhost:8080/auth/login';
+  private url: string = 'http://localhost:8080/auth';
 
   constructor(private http: HttpClient, private router:Router) { }
 
   login(username:string, password:string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.url, {username, password})
+    return this.http.post<AuthResponse>(this.url + '/login', {username, password})
   }
 
-  isLoggedIn(): boolean {
+  validateToken(): Observable<boolean> {
+    return this.http.post<boolean>(this.url + '/validate', this.token);
+  }
+
+  get token(): AuthResponse {
+    let token;
     try {
-      const token = localStorage.getItem('token');
-      return !!token; // Retorna true se o token estiver presente, caso contrário, retorna false
-    } catch (error) {
-      return false;
+      token = localStorage.getItem('token');
+    } catch {
+      token = '';
     }
+    return { "token": token || '' };
   }
 
   logout() {
     localStorage.removeItem('token');
-    this.router.navigate(['']);
+    this.router.navigate(['login']);
   }
 }
 

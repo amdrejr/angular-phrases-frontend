@@ -55,9 +55,27 @@
   appearance: none;
   border: none;
   background-color: transparent;
+  cursor: pointer;
 }
 
 .liked {
   color: var(--secondary-color);
 }
 
+.author-box {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.follow {
+  display: inline-block;
+  padding: 2px 5px;
+  border: none;
+  appearance: none;
+  background-color: var(--black-third);
+  font-weight: bold;
+  font-size: 0.7rem;
+  letter-spacing: 0.1rem;
+  cursor: pointer;
+}

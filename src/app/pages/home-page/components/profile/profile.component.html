@@ -2,10 +2,10 @@
   <img src="assets/images/profile.png" class="img-profile" alt="avatar" />
   <div class="name-box">
     <span class="title">Username</span>
-    <h3 class="name">{{user.username}}</h3>
-    <span class="title">Total phrases: <strong class="enphasis">{{user.phrases.length}}</strong></span>
+    <h3 class="name">{{user().username}}</h3>
+    <span class="title">Total phrases: <strong class="enphasis">{{myPhrases().length}}</strong></span>
     <br>
-    <span class="title">Total likes: <strong class="enphasis">{{totalLikes}}</strong></span>
+    <span class="title">Total likes: <strong class="enphasis">{{totalLikes()}}</strong></span>
   </div>
   <app-text-button (onClick)="logout()">
     <div class="logout">
@@ -17,10 +17,10 @@
 
 <main>
   <h2>Your Phrases</h2>
-  @for (phrase of user.phrases; track $index) {
+  @for (phrase of myPhrases(); track $index) {
     <div class="phrase-box">
       <app-phrase-card [phrase]="phrase" [hideAuthor]="true" [hidePhoto]="true"/>
-      <app-text-button class="delete-btn">
+      <app-text-button class="delete-btn" (onClick)="deletePhrase(phrase.id)">
         <mat-icon class="ico" aria-hidden="false" fontIcon="delete" />
       </app-text-button>
     </div>

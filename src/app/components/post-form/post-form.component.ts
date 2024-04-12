@@ -1,7 +1,11 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { Phrase } from '../../models/phrase';
+import { NotificationService } from '../../services/notification-service/notification.service';
+import { PhraseDataService } from '../../services/phrase-data/phrase-data.service';
+import { UserDataService } from '../../services/user-data-service/user-data.service';
 import { ButtonTextComponent } from '../button-text/button-text.component';
 
 @Component({
@@ -16,15 +20,36 @@ import { ButtonTextComponent } from '../button-text/button-text.component';
   styleUrl: './post-form.component.css'
 })
 export class PostFormComponent {
-  @Output() onClick = new EventEmitter<string>();
   postContent: string = '';
 
-  constructor(private dialogRef: MatDialogRef<PostFormComponent>) { }
+  constructor(
+    private dialogRef: MatDialogRef<PostFormComponent>,
+    private phraseDataService: PhraseDataService,
+    private notificationService: NotificationService,
+    private userDataService: UserDataService
+  ) { }
 
-  emitEvent(): void {
-    console.log("phrase:", this.postContent)
-    // Emitir os dados do textarea quando o formulário for submetido
-    this.onClick.emit(this.postContent);
+  post(): void {
+    const phrase: Phrase = {
+      text: this.postContent,
+      id: 0,
+      date: '',
+      allUsersLiked: [],
+      likes: 0,
+      author: { id: 0, username: '' },
+    }
+
+    // this.phraseDataService.createPhrase(phrase).subscribe({
+    //   next: (data) => {
+    //     this.notificationService.openNotification('Phrase posted!');
+    //     this.userDataService.me().phrases.push(data);
+    //   },
+    //   error: (err) => {
+    //     console.error('Error:', err);
+    //   }
+    // });
+
+    this.phraseDataService.createPhrase(phrase);
 
     this.close();
   }
