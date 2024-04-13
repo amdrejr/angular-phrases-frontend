@@ -20,7 +20,7 @@
   @for (phrase of myPhrases(); track $index) {
     <div class="phrase-box">
       <app-phrase-card [phrase]="phrase" [hideAuthor]="true" [hidePhoto]="true"/>
-      <app-text-button class="delete-btn" (onClick)="deletePhrase(phrase.id)">
+      <app-text-button class="delete-btn" (onClick)="openExclusionDialog(phrase.id)">
         <mat-icon class="ico" aria-hidden="false" fontIcon="delete" />
       </app-text-button>
     </div>

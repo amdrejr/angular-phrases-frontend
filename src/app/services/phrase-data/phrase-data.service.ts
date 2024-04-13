@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit, WritableSignal, signal } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Phrase } from '../../models/phrase';
+import { NotificationService } from '../notification-service/notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,10 @@ export class PhraseDataService implements OnInit {
     'Authorization': 'Bearer ' + localStorage.getItem('token')
   });
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private notificationService: NotificationService,
+  ) { }
 
   ngOnInit(): void { }
 
@@ -69,17 +72,31 @@ export class PhraseDataService implements OnInit {
     return data;
   }
 
-  deletePhrase(phraseId: number): Observable<Phrase> {
-    return this.http.delete<Phrase>(`${this.url}/${phraseId}`, { headers: this.headers });
-  }
-
-  createPhrase(phrase: Phrase): void {
-    this.http.post<Phrase>(this.url, phrase, { headers: this.headers }).subscribe({
-      next: (newP) => {
-        this.myPhrasesSignal.update(phrases => [...phrases, newP]);
+  deletePhrase(phraseId: number): void {
+    this.http.delete<void>(`${this.url}/${phraseId}`, { headers: this.headers })
+    .subscribe({
+      next: (data) => {
+        console.log('deleted', data);
+        this.myPhrases().splice(this.myPhrases().findIndex(phrase => phrase.id === phraseId), 1);
+        this.notificationService.openNotification('Phrase deleted!!');
       },
       error: (err) => {
         console.error('Error:', err);
+        this.notificationService.openNotification('Error deleting phrase..');
+      }
+    });
+  }
+
+  createPhrase(phrase: Phrase): void {
+    console.log(phrase)
+    this.http.post<Phrase>(this.url, {"text": phrase.text}, { headers: this.headers }).subscribe({
+      next: (newP) => {
+        this.myPhrasesSignal.update(phrases => [...phrases, newP]);
+        this.notificationService.openNotification('Phrase posted!');
+      },
+      error: (err) => {
+        console.error('Error:', err);
+        this.notificationService.openNotification('Error posting phrase..');
       }
     });
   }

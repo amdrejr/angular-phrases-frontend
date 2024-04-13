@@ -16,6 +16,10 @@ export class LoginService {
     return this.http.post<AuthResponse>(this.url + '/login', {username, password})
   }
 
+  createAccount(username:string, password:string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(this.url + '/signup', {username, password})
+  }
+
   validateToken(): Observable<boolean> {
     return this.http.post<boolean>(this.url + '/validate', this.token);
   }

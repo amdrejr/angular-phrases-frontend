@@ -1,5 +1,7 @@
 import { Component, OnInit, computed } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { ConfirmDialogComponent } from '../../../../components/confirm-dialog/confirm-dialog.component';
 import { PhraseCardComponent } from '../../../../components/phrase-card/phrase-card.component';
 import { TextButtonComponent } from '../../../../components/text-button/text-button.component';
 import { LoginService } from '../../../../services/login-service/login.service';
@@ -26,7 +28,8 @@ export class ProfileComponent implements OnInit {
     private userDataService: UserDataService,
     private loginService: LoginService,
     private phraseDataService: PhraseDataService,
-    private notificationService: NotificationService
+    private dialog: MatDialog,
+    private notificationService: NotificationService,
   ) { }
 
   ngOnInit(): void { }
@@ -36,14 +39,17 @@ export class ProfileComponent implements OnInit {
   logout = ():void => this.loginService.logout();
 
   deletePhrase = (id: number):void => {
-   this.phraseDataService.deletePhrase(id).subscribe({
-    next: (data) => {
-      this.myPhrases().splice(this.myPhrases().findIndex(phrase => phrase.id === id), 1);
-      this.notificationService.openNotification('Phrase deleted!');
-    },
-    error: (err) => {
-      console.error('Error:', err);
-    }
+    this.phraseDataService.deletePhrase(id);
+  }
+
+  openExclusionDialog(id: number): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Se o usuário clicou em "confirmar", exclua a frase
+        this.deletePhrase(id);
+      }
     });
   }
 

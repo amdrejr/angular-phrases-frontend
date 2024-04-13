@@ -1,0 +1,10 @@
+<div class="confirm-box">
+  <h1>Confirm</h1>
+  <div>
+    <p>{{text}}</p>
+  </div>
+  <div class="btn-box">
+    <app-text-button mat-button (onClick)="onNoClick()">Cancel</app-text-button>
+    <app-text-button mat-button color="warn" (onClick)="onYesClick()">Confirm</app-text-button>
+  </div>
+</div>

@@ -3,9 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { Phrase } from '../../models/phrase';
-import { NotificationService } from '../../services/notification-service/notification.service';
 import { PhraseDataService } from '../../services/phrase-data/phrase-data.service';
-import { UserDataService } from '../../services/user-data-service/user-data.service';
 import { ButtonTextComponent } from '../button-text/button-text.component';
 
 @Component({
@@ -25,8 +23,6 @@ export class PostFormComponent {
   constructor(
     private dialogRef: MatDialogRef<PostFormComponent>,
     private phraseDataService: PhraseDataService,
-    private notificationService: NotificationService,
-    private userDataService: UserDataService
   ) { }
 
   post(): void {
@@ -34,7 +30,7 @@ export class PostFormComponent {
       text: this.postContent,
       id: 0,
       date: '',
-      allUsersLiked: [],
+      usersLiked: [],
       likes: 0,
       author: { id: 0, username: '' },
     }

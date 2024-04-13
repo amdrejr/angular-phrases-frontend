@@ -19,15 +19,15 @@ export class PhraseCardComponent implements OnInit {
   @Input() phrase: Phrase = {
     id: 0,
     text: '',
-    allUsersLiked: [],
+    usersLiked: [],
     author: { id: 0, username: '' },
     date: '',
     likes: 0,
   };
 
   constructor(private phraseDataService: PhraseDataService) { }
-  ngOnInit(): void {
-  }
+
+  ngOnInit(): void { }
 
   get dateFormatted(): string {
     const date = new Date(this.phrase.date);
@@ -35,7 +35,7 @@ export class PhraseCardComponent implements OnInit {
   }
 
   get isLiked(): boolean {
-    return this.phrase.allUsersLiked.map((user) => user.id).includes(Number(localStorage.getItem('userId')));
+    return this.phrase.usersLiked.map((user) => user.id).includes(Number(localStorage.getItem('userId')));
   }
 
   like(): void {

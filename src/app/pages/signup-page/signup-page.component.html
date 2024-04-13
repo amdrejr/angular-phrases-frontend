@@ -1,10 +1,23 @@
 <main class="sign-up">
-  <form action="" class="form-sign-up">
+  <form (ngSubmit)="signup()" class="form-sign-up">
     <h2 class="title">Sign-up</h2>
-    <app-input-text label="Create a Username" type="username"/>
-    <app-input-text label="Password" type="password"/>
-    <app-input-text label="Repeat Password" type="password"/>
+    <app-input-text label="Create a Username" type="username" ico="person" (valueOnChange)="username = $event"/>
+    @if (isEmpty && !username) {
+      <span class="isEmpty">Please, enter a username!</span>
+    }
+    <app-input-text label="Password" type="password" ico="key" (valueOnChange)="password = $event" />
+    @if (isEmpty && !password) {
+      <span class="isEmpty">Please, enter a password!</span>
+    }
+    <app-input-text label="Repeat Password" type="password" ico="key" (valueOnChange)="passwordRepeat = $event"/>
+    @if (isEmpty && !passwordRepeat) {
+      <span class="isEmpty">Please, repeat your password!</span>
+    }
     <br style="margin: 8px;">
-    <app-button-text>Sign-up</app-button-text>
+    <app-button-text type="submit">Sign-up</app-button-text>
+
+    @if (errorMessage) {
+      <span class="errorMessage">{{errorMessage}}</span>
+    }
   </form>
 </main>

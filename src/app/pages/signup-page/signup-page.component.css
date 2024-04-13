@@ -27,3 +27,20 @@
   margin-bottom: 1.1rem;
   text-align: center;
 }
+
+.isEmpty {
+  color: red;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 50%;
+  text-align: center;
+  margin: 10px auto;
+  line-height: 1.5rem;
+
+}
