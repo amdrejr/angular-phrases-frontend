@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  background-color: var(--black-second);
+  width: 220px;
+  max-height: 400px;
+  padding: 10px;
+}
+
+.card {
+  width: 100%;
+  padding: 8px;
+  border-radius: 20px;
+  background-color: var(--black-third);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+}
+
+h3 {
+  text-align: center;
+  font-size: 1.24rem;
+  font-weight: bold;
+}
+
+.card img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  padding: 2px;
+  background-color: white;
+}
+
+span {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.no-content {
+  text-align: center;
+}

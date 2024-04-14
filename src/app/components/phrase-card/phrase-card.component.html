@@ -3,11 +3,10 @@
     <img src="assets/images/profile.png" class="img-profile" alt="avatar" />
   }
   <main class="content">
-    <header class="info">
+    <header class="info" (click)="redirectToUser()">
       @if(!hideAuthor) {
         <div class="author-box">
           <a class="author">{{phrase.author.username}}</a>
-          <button class="follow">FOLLOW</button>
         </div>
       }
       <span class="date">{{dateFormatted}}</span>
@@ -17,7 +16,7 @@
       <button class="btn-like" (click)="like()">
         <mat-icon aria-hidden="true" fontIcon="thumb_up" [class]=" isLiked ? 'liked' : '' "/>
       </button>
-      <span>{{phrase.likes}}</span>
+      <app-text-button (onClick)="usersLikedBox()">{{phrase.likes}}</app-text-button>
     </span>
   </main>
 </article>

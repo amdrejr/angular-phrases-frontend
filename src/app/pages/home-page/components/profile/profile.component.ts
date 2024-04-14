@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ConfirmDialogComponent } from '../../../../components/confirm-dialog/confirm-dialog.component';
 import { PhraseCardComponent } from '../../../../components/phrase-card/phrase-card.component';
 import { TextButtonComponent } from '../../../../components/text-button/text-button.component';
+import { UsersBoxDialogComponent } from '../../../../components/users-box-dialog/users-box-dialog.component';
 import { LoginService } from '../../../../services/login-service/login.service';
 import { NotificationService } from '../../../../services/notification-service/notification.service';
 import { PhraseDataService } from '../../../../services/phrase-data/phrase-data.service';
@@ -32,7 +33,9 @@ export class ProfileComponent implements OnInit {
     private notificationService: NotificationService,
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.myPhrases = this.phraseDataService.myPhrases;
+  }
 
   totalLikes = computed(()=> this.myPhrases().reduce((acc, phrase) => acc + phrase.likes, 0));
 
@@ -45,12 +48,40 @@ export class ProfileComponent implements OnInit {
   openExclusionDialog(id: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // Se o usuário clicou em "confirmar", exclua a frase
-        this.deletePhrase(id);
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if (result) {
+          this.deletePhrase(id);
+          this.notificationService.openNotification('Phrase deleted successfully!');
+        }
       }
     });
+  }
+
+  openFollowingDialog():void {
+    this.dialog.open(
+      UsersBoxDialogComponent,
+      {
+        data: {
+          title: 'Following',
+          array: this.user().allFollowing,
+          noContent: 'No users followed'
+        }
+      }
+    );
+  }
+
+  openFollowersDialog():void {
+    this.dialog.open(
+      UsersBoxDialogComponent,
+      {
+        data: {
+          title: 'Followers',
+          array: this.user().allFollowers,
+          noContent: 'No followers'
+        }
+      }
+    );
   }
 
 }

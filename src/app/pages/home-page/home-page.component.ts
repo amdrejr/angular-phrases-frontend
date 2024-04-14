@@ -6,6 +6,7 @@ import { LogoTextComponent } from '../../components/logo-text/logo-text.componen
 import { PhraseCardComponent } from '../../components/phrase-card/phrase-card.component';
 import { PostFormComponent } from '../../components/post-form/post-form.component';
 import { TextButtonComponent } from '../../components/text-button/text-button.component';
+import { PhraseDataService } from '../../services/phrase-data/phrase-data.service';
 import { UserDataService } from '../../services/user-data-service/user-data.service';
 
 @Component({
@@ -25,13 +26,18 @@ import { UserDataService } from '../../services/user-data-service/user-data.serv
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, private userDataService: UserDataService) { }
+  constructor(
+    public dialog: MatDialog,
+    private userDataService: UserDataService,
+    private phraseDataService: PhraseDataService
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.userDataService.me;
+    this.phraseDataService.allPhrases;
+  }
 
   openPostModal(): void {
     this.dialog.open(PostFormComponent, {});
   }
-
-
 }

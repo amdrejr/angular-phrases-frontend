@@ -1,18 +1,18 @@
 header {
   position: relative;
   display: flex;
-  gap: 16px;
-  padding: 15px;
+  gap: clamp(5px, 1.8vw, 18px);
+  padding: clamp(6px, 2vw, 20px);
   background-color: var(--black-second);
   border-bottom: 1px solid var(--black-third);
 }
 
 .img-profile {
-  width: 130px;
-  height: 130px;
+  width: clamp(60px, 22vw, 130px);
+  height: clamp(60px, 22vw, 130px);
   border-radius: 50%;
   background-color: white;
-  padding: 3px;
+  padding: clamp(1px, .4vw, 3px);
 }
 
 .name-box {
@@ -22,6 +22,8 @@ header {
 .title {
   font-size: 1rem;
   color: var(--black-fourth);
+  display: inline-flex;
+  gap: 6px;
 }
 
 .enphasis {
@@ -38,11 +40,19 @@ header {
   position: absolute;
   display: flex;
   align-items: center;
-  font-size: 1.2rem;
-  gap: 10px;
+  font-size: clamp(.85rem, 4vw, 1.2rem);
+  gap: clamp(5px, 2vw, 10px);
   color: var(--secondary-color);
-  right: 18px;
-  bottom: 18px;
+  right: 15px;
+  bottom: 15px;
+}
+
+.follow-box {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 15px;
+  top: 15px;
 }
 
 /* */

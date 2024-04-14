@@ -45,7 +45,7 @@
 
 .like-box {
   display: flex;
-  gap: 5px;
+  gap: 8px;
   align-items: center;
   justify-content: flex-end;
   font-weight: bold;
@@ -78,4 +78,8 @@
   font-size: 0.7rem;
   letter-spacing: 0.1rem;
   cursor: pointer;
+}
+
+.follow.-ing {
+  background-color: var(--secondary-color);
 }

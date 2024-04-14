@@ -1,0 +1,15 @@
+@if (data.array.length > 0) {
+  <div class="container">
+    <h3>{{data.title}}</h3>
+    @for (item of data.array; track $index) {
+      <div class="card">
+        <img src="assets/images/profile.png" class="img-profile" alt="avatar" />
+        <span>{{item.username}}</span>
+      </div>
+    }
+  </div>
+} @else {
+  <div class="container">
+      <span class="no-content">{{data.noContent}}</span>
+  </div>
+}

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit, WritableSignal, signal } from '@angular/core';
 import { Phrase } from '../../models/phrase';
 import { NotificationService } from '../notification-service/notification.service';
@@ -12,11 +12,6 @@ export class PhraseDataService implements OnInit {
   private followingPhrasesSignal: WritableSignal<Phrase[]> = signal([]);
   private phrases: WritableSignal<Phrase[]> = signal([]);
 
-  private headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + localStorage.getItem('token')
-  });
-
   constructor(
     private http: HttpClient,
     private notificationService: NotificationService,
@@ -27,7 +22,9 @@ export class PhraseDataService implements OnInit {
   private requestAllPhrases(): void {
     this.http.get<Phrase[]>(
       this.url,
-      { headers: this.headers }
+      { headers: {'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')}
+      }
     ).subscribe(
       (phrases: Phrase[]) => {
         this.phrases.set(phrases);
@@ -38,10 +35,12 @@ export class PhraseDataService implements OnInit {
   private requestMyPhrases(): void {
     this.http.get<Phrase[]>(
       this.url + '/my-phrases',
-      { headers: this.headers }
+      { headers: {'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')}
+      }
     ).subscribe(
-      (phrases: Phrase[]) => {
-        this.myPhrasesSignal.set(phrases);
+      (myPhrases: Phrase[]) => {
+        this.myPhrasesSignal.set(myPhrases);
       }
     );
   }
@@ -49,7 +48,9 @@ export class PhraseDataService implements OnInit {
   private requestFollowingPhrases(): void {
     this.http.get<Phrase[]>(
       this.url + '/following',
-      { headers: this.headers }
+      { headers: {'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')}
+      }
     ).subscribe(
       (phrases: Phrase[]) => {
         this.followingPhrasesSignal.set(phrases);
@@ -73,7 +74,9 @@ export class PhraseDataService implements OnInit {
   }
 
   deletePhrase(phraseId: number): void {
-    this.http.delete<void>(`${this.url}/${phraseId}`, { headers: this.headers })
+    this.http.delete<void>(`${this.url}/${phraseId}`,
+    {headers: {'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + localStorage.getItem('token')}})
     .subscribe({
       next: (data) => {
         console.log('deleted', data);
@@ -89,7 +92,12 @@ export class PhraseDataService implements OnInit {
 
   createPhrase(phrase: Phrase): void {
     console.log(phrase)
-    this.http.post<Phrase>(this.url, {"text": phrase.text}, { headers: this.headers }).subscribe({
+    this.http.post<Phrase>(
+      this.url,
+      {"text": phrase.text},
+      { headers: {'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')}
+      }).subscribe({
       next: (newP) => {
         this.myPhrasesSignal.update(phrases => [...phrases, newP]);
         this.notificationService.openNotification('Phrase posted!');

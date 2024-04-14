@@ -13,13 +13,24 @@
       <mat-icon aria-hidden="false" fontIcon="logout" />
     </div>
   </app-text-button>
+
+  <div class="follow-box">
+    <span class="title">
+      Following:
+      <app-text-button class="enphasis" (onClick)="openFollowingDialog()" >{{user().allFollowing.length}}</app-text-button>
+    </span>
+    <span class="title">
+      Followers:
+      <app-text-button class="enphasis" (onClick)="openFollowersDialog()" >{{user().allFollowers.length}}</app-text-button>
+    </span>
+  </div>
 </header>
 
 <main>
   <h2>Your Phrases</h2>
   @for (phrase of myPhrases(); track $index) {
     <div class="phrase-box">
-      <app-phrase-card [phrase]="phrase" [hideAuthor]="true" [hidePhoto]="true"/>
+      <app-phrase-card [phrase]="phrase" [hideAuthor]="true" [hidePhoto]="true" [usersLiked]="true"/>
       <app-text-button class="delete-btn" (onClick)="openExclusionDialog(phrase.id)">
         <mat-icon class="ico" aria-hidden="false" fontIcon="delete" />
       </app-text-button>

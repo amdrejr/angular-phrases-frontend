@@ -28,7 +28,10 @@ export class LoginPageComponent {
   isEmpty: boolean = false;
   errorMessage: string = '';
 
-  constructor(private router: Router, private loginService: LoginService) { }
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+  ) { }
 
   redirectToSignUp(): void {
     this.router.navigate(['/sign-up']);

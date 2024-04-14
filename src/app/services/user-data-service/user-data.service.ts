@@ -32,6 +32,7 @@ export class UserDataService {
   }
 
   get me () {
+    console.log("Requisitando ME");
     this.requestMyUserData();
     return this.actualUser;
   }

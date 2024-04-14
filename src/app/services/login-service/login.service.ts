@@ -10,7 +10,10 @@ import { Observable } from 'rxjs';
 export class LoginService {
   private url: string = 'http://localhost:8080/auth';
 
-  constructor(private http: HttpClient, private router:Router) { }
+  constructor(
+    private http: HttpClient,
+    private router:Router,
+  ) { }
 
   login(username:string, password:string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(this.url + '/login', {username, password})
@@ -36,6 +39,7 @@ export class LoginService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
     this.router.navigate(['login']);
   }
 }
