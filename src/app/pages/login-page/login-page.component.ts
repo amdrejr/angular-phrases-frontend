@@ -7,6 +7,7 @@ import { InputTextComponent } from '../../components/input-text/input-text.compo
 import { LogoTextComponent } from '../../components/logo-text/logo-text.component';
 import { TextButtonComponent } from '../../components/text-button/text-button.component';
 import { LoginService } from '../../services/login-service/login.service';
+import { UserDataService } from '../../services/user-data-service/user-data.service';
 
 @Component({
   selector: 'app-login-page',
@@ -31,6 +32,7 @@ export class LoginPageComponent {
   constructor(
     private router: Router,
     private loginService: LoginService,
+    private userDataService: UserDataService,
   ) { }
 
   redirectToSignUp(): void {
@@ -46,6 +48,7 @@ export class LoginPageComponent {
     this.loginService.login(this.username, this.password).subscribe({
       next: (data) => {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('userId', this.userDataService.me().id.toString());
       },
       complete: () => {
         this.router.navigate(['/home']);

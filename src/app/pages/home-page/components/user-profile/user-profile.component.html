@@ -1,0 +1,39 @@
+<header>
+  <img src="assets/images/profile.png" class="img-profile" alt="avatar" />
+  <div class="name-box">
+    <div>
+      <span class="title">Username</span>
+      <h3 class="name">{{user.username}}</h3>
+    </div>
+    <div>
+      <span class="title">Total phrases: <strong class="enphasis">{{userPhrases.length}}</strong></span>
+      <br>
+      <span class="title">Total likes: <strong class="enphasis">{{totalLikes()}}</strong></span>
+    </div>
+    <button type="button" class="btn-follow" (click)="followUser()">
+      @if (isFollowing) {
+        UNFOLLOW
+      } @else {
+        FOLLOW
+      }
+    </button>
+  </div>
+
+  <div class="follow-box">
+    <span class="follow-info" (click)="openFollowingDialog()">
+      Following:
+      <p class="enphasis" >{{user.allFollowing.length}}</p>
+    </span>
+    <span class="follow-info" (click)="openFollowersDialog()">
+      Followers:
+      <p class="enphasis" >{{user.allFollowers.length}}</p>
+    </span>
+  </div>
+</header>
+
+<main>
+  <h2>Phrases</h2>
+  @for (phrase of userPhrases; track $index) {
+      <app-phrase-card [phrase]="phrase" [hidePhoto]="true" [usersLiked]="true"/>
+  }
+</main>

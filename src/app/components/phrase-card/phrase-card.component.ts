@@ -25,7 +25,7 @@ export class PhraseCardComponent implements OnInit {
   @Input() phrase: Phrase = {
     id: 0,
     text: '',
-    usersLiked: [],
+    likedByUsers: [],
     author: { id: 0, username: '' },
     date: '',
     likes: 0,
@@ -41,7 +41,11 @@ export class PhraseCardComponent implements OnInit {
 
   redirectToUser(): void {
     console.log("redirectToUser")
-    // this.router.navigate(['/users/' + this.phrase.author.id]);
+    if(this.phrase.author.id === Number(localStorage.getItem('userId'))){
+      this.router.navigate(['/home/profile']);
+    } else {
+      this.router.navigate(['/home/users/' + this.phrase.author.id]);
+    }
   }
 
   usersLikedBox() {
@@ -50,7 +54,7 @@ export class PhraseCardComponent implements OnInit {
       {
         data: {
           title: 'Users liked',
-          array: this.phrase.usersLiked,
+          array: this.phrase.likedByUsers,
           noContent: 'No users liked this phrase'
         }
       }
@@ -63,11 +67,11 @@ export class PhraseCardComponent implements OnInit {
   }
 
   get isMyPhrase(): boolean {
-    return this.phrase.usersLiked.map((user) => user.id).includes(Number(localStorage.getItem('userId')));
+    return this.phrase.likedByUsers.map((user) => user.id).includes(Number(localStorage.getItem('userId')));
   }
 
   get isLiked(): boolean {
-    return this.phrase.usersLiked.map((user) => user.id)
+    return this.phrase.likedByUsers.map((user) => user.id)
       .includes(Number(localStorage.getItem('userId')));
   }
 

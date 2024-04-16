@@ -2,7 +2,7 @@
   <div class="container">
     <h3>{{data.title}}</h3>
     @for (item of data.array; track $index) {
-      <div class="card">
+      <div class="card" (click)="redirectToUserProfile(item.id)">
         <img src="assets/images/profile.png" class="img-profile" alt="avatar" />
         <span>{{item.username}}</span>
       </div>

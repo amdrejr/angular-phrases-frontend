@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, WritableSignal, signal } from '@angular/core';
+import { Observable } from 'rxjs';
 import { User } from '../../models/user';
 
 @Injectable({
@@ -15,14 +16,15 @@ export class UserDataService {
     allFollowing: []
   });
 
-  constructor(private http: HttpClient) {
-    this.requestMyUserData();
-  }
+  constructor(private http: HttpClient) { }
 
   private requestMyUserData = ():void =>  {
     this.http.get<User>(
       this.url + '/me',
-      {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}}
+      {headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }}
     ).subscribe(
       (user: User) => {
         localStorage.setItem('userId', user.id.toString());
@@ -31,9 +33,37 @@ export class UserDataService {
     );
   }
 
+  public getUserById = (id: number): Observable<User> => {
+    return this.http.get<User>(
+      this.url + '/' + id,
+      {headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }}
+    );
+  }
+
+  public followUserById = (id: number): Observable<boolean> => {
+    return this.http.put<boolean>(
+      this.url + '/' + id + '/follow',
+      {},
+      {headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }}
+    )
+  }
+
   get me () {
     console.log("Requisitando ME");
     this.requestMyUserData();
     return this.actualUser;
+  }
+
+  get myNameId () {
+    return {
+      id: this.actualUser().id,
+      username: this.actualUser().username,
+    }
   }
 }

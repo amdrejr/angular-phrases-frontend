@@ -38,6 +38,10 @@ export const routes: Routes = [
       {
         path: 'search',
         loadComponent: () => import('./pages/home-page/components/search/search.component').then(m => m.SearchComponent)
+      },
+      {
+        path: 'users/:id',
+        loadComponent: () => import('./pages/home-page/components/user-profile/user-profile.component').then(m => m.UserProfileComponent)
       }
     ]
   },

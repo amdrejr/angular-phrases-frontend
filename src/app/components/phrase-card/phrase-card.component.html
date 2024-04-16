@@ -3,10 +3,10 @@
     <img src="assets/images/profile.png" class="img-profile" alt="avatar" />
   }
   <main class="content">
-    <header class="info" (click)="redirectToUser()">
+    <header class="info">
       @if(!hideAuthor) {
         <div class="author-box">
-          <a class="author">{{phrase.author.username}}</a>
+          <a class="author" (click)="redirectToUser()">{{phrase.author.username}}</a>
         </div>
       }
       <span class="date">{{dateFormatted}}</span>

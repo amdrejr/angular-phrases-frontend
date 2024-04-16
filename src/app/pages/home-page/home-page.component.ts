@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { LogoTextComponent } from '../../components/logo-text/logo-text.component';
 import { PhraseCardComponent } from '../../components/phrase-card/phrase-card.component';
 import { PostFormComponent } from '../../components/post-form/post-form.component';
@@ -29,7 +29,8 @@ export class HomePageComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private userDataService: UserDataService,
-    private phraseDataService: PhraseDataService
+    private phraseDataService: PhraseDataService,
+    protected router: Router
   ) { }
 
   ngOnInit(): void {

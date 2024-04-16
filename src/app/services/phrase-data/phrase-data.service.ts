@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit, WritableSignal, signal } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Phrase } from '../../models/phrase';
 import { NotificationService } from '../notification-service/notification.service';
 
@@ -106,6 +107,15 @@ export class PhraseDataService implements OnInit {
         console.error('Error:', err);
         this.notificationService.openNotification('Error posting phrase..');
       }
+    });
+  }
+
+
+  getPhrasesByUserId(userId: number): Observable<Phrase[]> {
+    return this.http.get<Phrase[]>(
+      `${this.url}/${userId}`,
+      { headers: {'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')}
     });
   }
 

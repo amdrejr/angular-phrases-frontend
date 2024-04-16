@@ -17,7 +17,9 @@ header {
 }
 
 .name-box {
-  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .title {
@@ -27,34 +29,15 @@ header {
   gap: 6px;
 }
 
-.follow-info {
-  font-size: 1rem;
-  color: var(--black-fourth);
-  display: inline-flex;
-  gap: 6px;
-  cursor: pointer;
-}
-
 .enphasis {
   color: white;
   margin: 0;
 }
 
 .name {
-  margin: 10px 0;
+  margin-top: 6px;
   font-size: 1.6rem;
   font-weight: bold;
-}
-
-.logout {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  font-size: clamp(.85rem, 4vw, 1.2rem);
-  gap: clamp(5px, 2vw, 10px);
-  color: var(--secondary-color);
-  right: 15px;
-  bottom: 15px;
 }
 
 .follow-box {
@@ -63,6 +46,14 @@ header {
   position: absolute;
   right: 15px;
   top: 15px;
+}
+
+.follow-info {
+  font-size: 1rem;
+  color: var(--black-fourth);
+  display: inline-flex;
+  gap: 6px;
+  cursor: pointer;
 }
 
 /* */
@@ -76,31 +67,22 @@ main h2 {
   border-bottom: 1px solid var(--black-third);
 }
 
-.phrase-box {
-  padding-right: 10%;
-  position: relative;
-}
-
-.delete-btn {
-  width: 10%;
-  height: 100%;
+.btn-follow {
   position: absolute;
-  top: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--black-second);
-  border-bottom: 1px solid var(--black-third);
+  right: 15px;
+  bottom: 15px;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  font-size: 1.24rem;
+  font-weight: bold;
+  border: none;
+  appearance: none;
+  cursor: pointer;
+  transition: color .2s;
 }
 
-.ico  {
-  font-size: 30px;
-  width: 30px;
-  height: 30px;
-  color: var(--black-fourth);
-}
-
-.ico:hover {
+.btn-follow:hover {
   color: var(--secondary-color);
 }
+

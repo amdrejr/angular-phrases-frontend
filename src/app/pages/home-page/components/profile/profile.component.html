@@ -15,19 +15,19 @@
   </app-text-button>
 
   <div class="follow-box">
-    <span class="title">
+    <span class="follow-info" (click)="openFollowingDialog()">
       Following:
-      <app-text-button class="enphasis" (onClick)="openFollowingDialog()" >{{user().allFollowing.length}}</app-text-button>
+      <p class="enphasis" >{{user().allFollowing.length}}</p>
     </span>
-    <span class="title">
+    <span class="follow-info" (click)="openFollowersDialog()">
       Followers:
-      <app-text-button class="enphasis" (onClick)="openFollowersDialog()" >{{user().allFollowers.length}}</app-text-button>
+      <p class="enphasis" >{{user().allFollowers.length}}</p>
     </span>
   </div>
 </header>
 
 <main>
-  <h2>Your Phrases</h2>
+  <h2>Phrases</h2>
   @for (phrase of myPhrases(); track $index) {
     <div class="phrase-box">
       <app-phrase-card [phrase]="phrase" [hideAuthor]="true" [hidePhoto]="true" [usersLiked]="true"/>

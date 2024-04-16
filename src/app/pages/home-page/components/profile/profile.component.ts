@@ -33,9 +33,7 @@ export class ProfileComponent implements OnInit {
     private notificationService: NotificationService,
   ) { }
 
-  ngOnInit(): void {
-    this.myPhrases = this.phraseDataService.myPhrases;
-  }
+  ngOnInit(): void { }
 
   totalLikes = computed(()=> this.myPhrases().reduce((acc, phrase) => acc + phrase.likes, 0));
 
