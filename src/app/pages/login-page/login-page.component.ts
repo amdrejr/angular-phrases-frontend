@@ -52,11 +52,7 @@ export class LoginPageComponent {
       },
       complete: () => {
         this.router.navigate(['/home']);
-      },
-      error: (err) => {
-        console.log('ERROR Error:', err);
-        this.errorMessage = err.error.message;
-      },
+      }
     });
   }
 }

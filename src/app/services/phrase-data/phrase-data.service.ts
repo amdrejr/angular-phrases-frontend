@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit, WritableSignal, signal } from '@angular/core';
 import { Observable } from 'rxjs';
+import { customErrorException } from '../../exceptions/customErrorException';
+import { Page } from '../../models/page';
 import { Phrase } from '../../models/phrase';
 import { NotificationService } from '../notification-service/notification.service';
 
@@ -21,40 +23,40 @@ export class PhraseDataService implements OnInit {
   ngOnInit(): void { }
 
   private requestAllPhrases(): void {
-    this.http.get<Phrase[]>(
+    this.http.get<Page<Phrase>>(
       this.url,
       { headers: {'Content-Type': 'application/json',
                   'Authorization': 'Bearer ' + localStorage.getItem('token')}
       }
     ).subscribe(
-      (phrases: Phrase[]) => {
-        this.phrases.set(phrases);
+      (page) => {
+        this.phrases.set(page.content);
       }
     );
   }
 
   private requestMyPhrases(): void {
-    this.http.get<Phrase[]>(
+    this.http.get<Page<Phrase>>(
       this.url + '/my-phrases',
       { headers: {'Content-Type': 'application/json',
                   'Authorization': 'Bearer ' + localStorage.getItem('token')}
       }
     ).subscribe(
-      (myPhrases: Phrase[]) => {
-        this.myPhrasesSignal.set(myPhrases);
+      (page) => {
+        this.myPhrasesSignal.set(page.content);
       }
     );
   }
 
   private requestFollowingPhrases(): void {
-    this.http.get<Phrase[]>(
+    this.http.get<Page<Phrase>>(
       this.url + '/following',
       { headers: {'Content-Type': 'application/json',
                   'Authorization': 'Bearer ' + localStorage.getItem('token')}
       }
     ).subscribe(
-      (phrases: Phrase[]) => {
-        this.followingPhrasesSignal.set(phrases);
+      (page) => {
+        this.followingPhrasesSignal.set(page.content);
       }
     );
   }
@@ -85,8 +87,8 @@ export class PhraseDataService implements OnInit {
         this.notificationService.openNotification('Phrase deleted!!');
       },
       error: (err) => {
-        console.error('Error:', err);
         this.notificationService.openNotification('Error deleting phrase..');
+        throw new customErrorException('Error posting phrase..', err.status);
       }
     });
   }
@@ -104,15 +106,15 @@ export class PhraseDataService implements OnInit {
         this.notificationService.openNotification('Phrase posted!');
       },
       error: (err) => {
-        console.error('Error:', err);
         this.notificationService.openNotification('Error posting phrase..');
+        throw new customErrorException('Error posting phrase..', err.status);
       }
     });
   }
 
 
-  getPhrasesByUserId(userId: number): Observable<Phrase[]> {
-    return this.http.get<Phrase[]>(
+  getPhrasesByUserId(userId: number): Observable<Page<Phrase>> {
+    return this.http.get<Page<Phrase>>(
       `${this.url}/${userId}`,
       { headers: {'Content-Type': 'application/json',
                   'Authorization': 'Bearer ' + localStorage.getItem('token')}

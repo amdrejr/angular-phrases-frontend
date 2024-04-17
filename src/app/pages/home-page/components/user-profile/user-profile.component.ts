@@ -54,8 +54,8 @@ export class UserProfileComponent  implements OnInit {
       });
 
       this.phraseDataService.getPhrasesByUserId(userId).subscribe({
-        next: (phrases) => {
-          this.userPhrases = phrases;
+        next: (page) => {
+          this.userPhrases = page.content;
         }
       });
     });
