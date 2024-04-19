@@ -1,5 +1,9 @@
 @if (phrases().length > 0) {
-  <app-list-phrases [phrases]="phrases"></app-list-phrases>
+  <app-list-phrases
+    [phrases]="phrases"
+    (onLast)="load()"
+    [disableLast]="disable"
+  ></app-list-phrases>
 } @else {
   <p class="no-followings">
     You still don't follow anyone

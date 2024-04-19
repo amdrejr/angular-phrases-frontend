@@ -1,1 +1,5 @@
-<app-list-phrases [phrases]="phrases"></app-list-phrases>
+<app-list-phrases
+  [phrases]="phrases"
+  (onLast)="load()"
+  [disableLast]="disable"
+></app-list-phrases>

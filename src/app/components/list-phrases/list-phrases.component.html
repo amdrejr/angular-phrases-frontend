@@ -1,3 +1,8 @@
 @for (phrase of phrases(); track $index) {
   <app-phrase-card [phrase]="phrase" [hidePhoto]="hidePhoto" [hideAuthor]="hideAuthor"></app-phrase-card>
+  @if ($index == phrases().length-1) {
+    <button [class]="disableLast ? 'disable' : 'btn-load'" (click)="emitEvent()">
+      Load more
+    </button>
+  }
 }

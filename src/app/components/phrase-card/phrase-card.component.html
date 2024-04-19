@@ -14,7 +14,7 @@
     <p class="phrase">{{phrase.text}}</p>
     <span class="like-box">
       <button class="btn-like" (click)="like()">
-        <mat-icon aria-hidden="true" fontIcon="thumb_up" [class]=" isLiked ? 'liked' : '' "/>
+        <mat-icon aria-hidden="true" fontIcon="thumb_up" [class]=" phrase.isLikedByMe ? 'liked' : '' "/>
       </button>
       <app-text-button (onClick)="usersLikedBox()">{{phrase.likes}}</app-text-button>
     </span>

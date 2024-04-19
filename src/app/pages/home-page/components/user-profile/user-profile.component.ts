@@ -91,6 +91,7 @@ export class UserProfileComponent  implements OnInit {
     this.userDataService.followUserById(this.user.id).subscribe({
       next: (isFollowing) => {
         this.isFollowing = isFollowing;
+        this.phraseDataService.init();
       },
       complete: () => {
         if(this.isFollowing){

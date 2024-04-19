@@ -24,6 +24,9 @@ import { UserDataService } from '../../../../services/user-data-service/user-dat
 export class ProfileComponent implements OnInit {
   user = this.userDataService.me;
   myPhrases = this.phraseDataService.myPhrases;
+  page: number = 1; // home já chama a primeira page
+  size: number = 10;
+  disable: boolean = this.phraseDataService.isLastPageMyPhrases();
 
   constructor(
     private userDataService: UserDataService,
@@ -80,6 +83,21 @@ export class ProfileComponent implements OnInit {
         }
       }
     );
+  }
+
+  load(): void {
+    this.phraseDataService.loadMyPhrases(this.page, this.size)
+    .subscribe({
+      next: (page) => {
+        this.myPhrases.update(phrases => [...phrases, ...page.content]);
+        if(!page.last) {
+          this.page++;
+        } else {
+          this.phraseDataService.isLastPageMyPhrases.set(true);
+          this.disable = true;
+        }
+      }
+    })
   }
 
 }

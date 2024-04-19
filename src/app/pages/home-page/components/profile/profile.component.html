@@ -30,10 +30,17 @@
   <h2>Phrases</h2>
   @for (phrase of myPhrases(); track $index) {
     <div class="phrase-box">
-      <app-phrase-card [phrase]="phrase" [hideAuthor]="true" [hidePhoto]="true" [usersLiked]="true"/>
+      <app-phrase-card
+        [phrase]="phrase"
+        [hideAuthor]="true"
+        [hidePhoto]="true"
+        [usersLiked]="true"
+        (onLast)="load()"
+      />
       <app-text-button class="delete-btn" (onClick)="openExclusionDialog(phrase.id)">
         <mat-icon class="ico" aria-hidden="false" fontIcon="delete" />
       </app-text-button>
     </div>
   }
+  <button [class]="disable ? 'disable' : 'btn-load'" (click)="load()">Load more</button>
 </main>

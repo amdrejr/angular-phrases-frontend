@@ -30,7 +30,7 @@ export class PostFormComponent {
       text: this.postContent,
       id: 0,
       date: '',
-      likedByUsers: [],
+      isLikedByMe: false,
       likes: 0,
       author: { id: 0, username: '' },
     }

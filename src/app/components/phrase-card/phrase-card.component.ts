@@ -25,7 +25,7 @@ export class PhraseCardComponent implements OnInit {
   @Input() phrase: Phrase = {
     id: 0,
     text: '',
-    likedByUsers: [],
+    isLikedByMe: false,
     author: { id: 0, username: '' },
     date: '',
     likes: 0,
@@ -49,30 +49,25 @@ export class PhraseCardComponent implements OnInit {
   }
 
   usersLikedBox() {
-    this.dialog.open(
-      UsersBoxDialogComponent,
-      {
-        data: {
-          title: 'Users liked',
-          array: this.phrase.likedByUsers,
-          noContent: 'No users liked this phrase'
-        }
+    this.phraseDataService.requestWhoLiked(this.phrase.id).subscribe({
+      next: (users) => {
+        this.dialog.open(
+          UsersBoxDialogComponent,
+          {
+            data: {
+              title: 'Users liked',
+              array: users,
+              noContent: 'No users liked this phrase'
+            }
+          }
+        );
       }
-    );
+    });
   }
 
   get dateFormatted(): string {
     const date = new Date(this.phrase.date);
     return date.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-  }
-
-  get isMyPhrase(): boolean {
-    return this.phrase.likedByUsers.map((user) => user.id).includes(Number(localStorage.getItem('userId')));
-  }
-
-  get isLiked(): boolean {
-    return this.phrase.likedByUsers.map((user) => user.id)
-      .includes(Number(localStorage.getItem('userId')));
   }
 
   like(): void {

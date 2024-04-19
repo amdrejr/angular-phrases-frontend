@@ -34,8 +34,8 @@ export class HomePageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userDataService.me;
-    this.phraseDataService.allPhrases;
+    console.log("iniciando HOME");
+    this.phraseDataService.init();
   }
 
   openPostModal(): void {

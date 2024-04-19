@@ -1,0 +1,19 @@
+.btn-load {
+  width: 100%;
+  padding: 16px 0;
+  border: none;
+  appearance: none;
+  background-color: var(--black-second);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-load:hover {
+  background-color: var(--black-third);
+}
+
+.disable {
+  display: none;
+}

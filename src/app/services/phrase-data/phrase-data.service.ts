@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit, WritableSignal, signal } from '@angular/core';
+import { Injectable, WritableSignal, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { customErrorException } from '../../exceptions/customErrorException';
 import { Page } from '../../models/page';
@@ -9,31 +9,103 @@ import { NotificationService } from '../notification-service/notification.servic
 @Injectable({
   providedIn: 'root'
 })
-export class PhraseDataService implements OnInit {
+export class PhraseDataService {
   url: string = 'http://localhost:8080/phrases';
-  private myPhrasesSignal: WritableSignal<Phrase[]> = signal([]);
-  private followingPhrasesSignal: WritableSignal<Phrase[]> = signal([]);
-  private phrases: WritableSignal<Phrase[]> = signal([]);
+  public myPhrases: WritableSignal<Phrase[]> = signal([]);
+  public followingPhrases: WritableSignal<Phrase[]> = signal([]);
+  public allPhrases: WritableSignal<Phrase[]> = signal([]);
+  public isLastPageAllPhrases = signal(false);
+  public isLastPageMyPhrases = signal(false);
+  public isLastPageFollowingPhrases = signal(false);
 
   constructor(
     private http: HttpClient,
     private notificationService: NotificationService,
   ) { }
 
-  ngOnInit(): void { }
-
-  private requestAllPhrases(): void {
+  public init(): void {
+    // all phrases
     this.http.get<Page<Phrase>>(
       this.url,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        params: {page: '0', size: '10'}
+      }
+    ).subscribe(
+      (page) => {
+        this.allPhrases.set(page.content);
+        this.isLastPageAllPhrases.set(page.last);
+      }
+    );
+    // my phrases
+    this.http.get<Page<Phrase>>(
+      this.url + '/my-phrases',
       { headers: {'Content-Type': 'application/json',
                   'Authorization': 'Bearer ' + localStorage.getItem('token')}
       }
     ).subscribe(
       (page) => {
-        this.phrases.set(page.content);
+        this.myPhrases.set(page.content);
+        this.isLastPageMyPhrases.set(page.last);
+      }
+    );
+    // following phrases
+    this.http.get<Page<Phrase>>(
+      this.url + '/following',
+      { headers: {'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')}
+      }
+    ).subscribe(
+      (page) => {
+        this.followingPhrases.set(page.content);
+        this.isLastPageFollowingPhrases.set(page.last);
       }
     );
   }
+
+  public loadPhrases(page: number = 0, size: number = 10): Observable<Page<Phrase>> {
+    return this.http.get<Page<Phrase>>(
+      this.url,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        params: {page: page.toString(), size: size.toString()}
+      }
+    )
+  }
+
+  public loadFollowingPhrases(page: number = 0, size: number = 10): Observable<Page<Phrase>> {
+    return this.http.get<Page<Phrase>>(
+      this.url + '/following',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        params: {page: page.toString(), size: size.toString()}
+      }
+    )
+  }
+
+  public loadMyPhrases(page: number = 0, size: number = 10): Observable<Page<Phrase>> {
+    return this.http.get<Page<Phrase>>(
+      this.url + '/my-phrases',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        params: {page: page.toString(), size: size.toString()}
+      }
+    )
+  }
+
+
 
   private requestMyPhrases(): void {
     this.http.get<Page<Phrase>>(
@@ -43,7 +115,7 @@ export class PhraseDataService implements OnInit {
       }
     ).subscribe(
       (page) => {
-        this.myPhrasesSignal.set(page.content);
+        this.myPhrases.set(page.content);
       }
     );
   }
@@ -56,10 +128,18 @@ export class PhraseDataService implements OnInit {
       }
     ).subscribe(
       (page) => {
-        this.followingPhrasesSignal.set(page.content);
+        this.followingPhrases.set(page.content);
       }
     );
   }
+
+    public requestWhoLiked(phraseId: number): Observable<{username: string, id: number}[]> {
+    return this.http.get<{username: string, id: number}[]>(
+      `${this.url}/who-liked/${phraseId}`,
+      { headers: {'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')}
+      });
+  };
 
   async likePhrase(phraseId: number) {
     const response = await fetch(`${this.url}/${phraseId}/like`, {
@@ -71,7 +151,7 @@ export class PhraseDataService implements OnInit {
     });
     const data = await response.json();
 
-    this.myPhrasesSignal.update(phrases => phrases.map(phrase => phrase.id === phraseId ? data : phrase));
+    this.myPhrases.update(phrases => phrases.map(phrase => phrase.id === phraseId ? data : phrase));
 
     return data;
   }
@@ -102,7 +182,7 @@ export class PhraseDataService implements OnInit {
                   'Authorization': 'Bearer ' + localStorage.getItem('token')}
       }).subscribe({
       next: (newP) => {
-        this.myPhrasesSignal.update(phrases => [...phrases, newP]);
+        this.myPhrases.update(phrases => [...phrases, newP]);
         this.notificationService.openNotification('Phrase posted!');
       },
       error: (err) => {
@@ -121,21 +201,21 @@ export class PhraseDataService implements OnInit {
     });
   }
 
-  get myPhrases(): WritableSignal<Phrase[]> {
-    this.requestMyPhrases();
-    console.log('Requesting my phrases', this.myPhrasesSignal())
-    return this.myPhrasesSignal;
-  }
+  // get myPhrases(): WritableSignal<Phrase[]> {
+  //   this.requestMyPhrases();
+  //    console.log('Requesting my phrases', this.myPhrases())
+  //    return this.myPhrases;
+  //  }
 
-  get allPhrases(): WritableSignal<Phrase[]> {
-    this.requestAllPhrases();
-    console.log('Requesting all phrases', this.phrases())
-    return this.phrases;
-  }
+  // get allPhrases(): WritableSignal<Phrase[]> {
+  //   this.requestAllPhrases();
+  //   console.log('Requesting all phrases', this.phrases())
+  //   return this.phrases;
+  // }
 
-  get followingPhrases(): WritableSignal<Phrase[]> {
-    this.requestFollowingPhrases();
-    console.log('Requesting following phrases', this.followingPhrasesSignal())
-    return this.followingPhrasesSignal;
-  }
+  // get followingPhrases(): WritableSignal<Phrase[]> {
+  //   this.requestFollowingPhrases();
+  //   console.log('Requesting following phrases', this.followingPhrasesSignal())
+  //   return this.followingPhrasesSignal;
+  // }
 }
