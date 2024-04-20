@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './users-box-dialog.component.css'
 })
 export class UsersBoxDialogComponent {
+  @Output() onClick = new EventEmitter<void>();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {
@@ -24,5 +25,9 @@ export class UsersBoxDialogComponent {
   redirectToUserProfile(id: number) {
     this.dialog.closeAll();
     this.router.navigate(['/home/users/' + id]);
+  }
+
+  emitEvent(): void {
+    this.onClick.emit();
   }
 }

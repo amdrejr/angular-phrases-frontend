@@ -25,12 +25,16 @@ export class UserProfileComponent  implements OnInit {
   user: User = {
     id: 0,
     username: '',
-    allFollowing: [],
-    allFollowers: [],
+    totalFollowing: 0,
+    totalFollowers: 0,
+    isIFollowing: false
   };
   userPhrases: Phrase[] = [];
   totalLikes = ()=> this.userPhrases.reduce((acc, phrase) => acc + phrase.likes, 0);
   isFollowing:boolean = false;
+
+  pageF: number = 1;
+  sizeF: number = 10;
 
   constructor(
     private userDataService: UserDataService,
@@ -49,7 +53,7 @@ export class UserProfileComponent  implements OnInit {
       this.userDataService.getUserById(userId).subscribe({
         next: (user) => {
           this.user = user;
-          this.isFollowing = this.user.allFollowers.map(f => f.id).includes(Number(localStorage.getItem('userId')));
+          this.isFollowing = user.isIFollowing;
         }
       });
 
@@ -62,29 +66,45 @@ export class UserProfileComponent  implements OnInit {
   }
 
   openFollowingDialog():void {
-    this.dialog.open(
-      UsersBoxDialogComponent,
-      {
-        data: {
-          title: 'Following',
-          array: this.user.allFollowing,
-          noContent: 'No users followed'
-        }
+    this.userDataService.requestFollowing(this.user.id).subscribe({
+      next: (users) => {
+        const dialog = this.dialog.open(
+          UsersBoxDialogComponent,
+          {
+            data: {
+              title: 'Following',
+              array: users.content,
+              noContent: 'No users followed'
+            }
+          }
+        );
+
+        dialog.afterClosed().subscribe({
+          complete: () => this.pageF = 1
+        })
       }
-    );
+    });
   }
 
   openFollowersDialog():void {
-    this.dialog.open(
-      UsersBoxDialogComponent,
-      {
-        data: {
-          title: 'Followers',
-          array: this.user.allFollowers,
-          noContent: 'No followers'
-        }
+    this.userDataService.requestFollowers(this.user.id).subscribe({
+      next: (users) => {
+        const dialog = this.dialog.open(
+          UsersBoxDialogComponent,
+          {
+            data: {
+              title: 'Followers',
+              array: users.content,
+              noContent: 'No followers'
+            }
+          }
+        );
+
+        dialog.afterClosed().subscribe({
+          complete: () => this.pageF = 1
+        })
       }
-    );
+    });
   }
 
   followUser(): void {
@@ -95,9 +115,9 @@ export class UserProfileComponent  implements OnInit {
       },
       complete: () => {
         if(this.isFollowing){
-          this.user.allFollowers.push(this.userDataService.myNameId);
+          this.user.totalFollowers++;
         } else {
-          this.user.allFollowers = this.user.allFollowers.filter((follower) => follower.id !== this.userDataService.myNameId.id);
+          this.user.totalFollowers--;
         }
       }
     });

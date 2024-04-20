@@ -7,6 +7,10 @@
         <span>{{item.username}}</span>
       </div>
     }
+    @if (data.array.length >= 10) {
+      <button class="btn-load" (click)="emitEvent()">Load more</button>
+    }
+
   </div>
 } @else {
   <div class="container">

@@ -164,6 +164,7 @@ export class PhraseDataService {
       next: (data) => {
         console.log('deleted', data);
         this.myPhrases().splice(this.myPhrases().findIndex(phrase => phrase.id === phraseId), 1);
+        this.allPhrases().splice(this.allPhrases().findIndex(phrase => phrase.id === phraseId), 1);
         this.notificationService.openNotification('Phrase deleted!!');
       },
       error: (err) => {
@@ -174,7 +175,6 @@ export class PhraseDataService {
   }
 
   createPhrase(phrase: Phrase): void {
-    console.log(phrase)
     this.http.post<Phrase>(
       this.url,
       {"text": phrase.text},
@@ -183,6 +183,8 @@ export class PhraseDataService {
       }).subscribe({
       next: (newP) => {
         this.myPhrases.update(phrases => [...phrases, newP]);
+        this.allPhrases.update(phrases => [...phrases, newP]);
+        console.log('Phrase posted!', newP)
         this.notificationService.openNotification('Phrase posted!');
       },
       error: (err) => {

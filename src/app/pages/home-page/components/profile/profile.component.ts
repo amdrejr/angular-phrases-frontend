@@ -27,6 +27,8 @@ export class ProfileComponent implements OnInit {
   page: number = 1; // home já chama a primeira page
   size: number = 10;
   disable: boolean = this.phraseDataService.isLastPageMyPhrases();
+  pageF: number = 1;
+  sizeF: number = 10;
 
   constructor(
     private userDataService: UserDataService,
@@ -60,29 +62,45 @@ export class ProfileComponent implements OnInit {
   }
 
   openFollowingDialog():void {
-    this.dialog.open(
-      UsersBoxDialogComponent,
-      {
-        data: {
-          title: 'Following',
-          array: this.user().allFollowing,
-          noContent: 'No users followed'
-        }
+    this.userDataService.requestFollowing(this.user().id).subscribe({
+      next: (users) => {
+        const dialog = this.dialog.open(
+          UsersBoxDialogComponent,
+          {
+            data: {
+              title: 'Following',
+              array: users.content,
+              noContent: 'No users followed'
+            }
+          }
+        );
+
+        dialog.afterClosed().subscribe({
+          complete: () => this.pageF = 1
+        })
       }
-    );
+    });
   }
 
   openFollowersDialog():void {
-    this.dialog.open(
-      UsersBoxDialogComponent,
-      {
-        data: {
-          title: 'Followers',
-          array: this.user().allFollowers,
-          noContent: 'No followers'
-        }
+    this.userDataService.requestFollowers(this.user().id).subscribe({
+      next: (users) => {
+        const dialog = this.dialog.open(
+          UsersBoxDialogComponent,
+          {
+            data: {
+              title: 'Followers',
+              array: users.content,
+              noContent: 'No followers'
+            }
+          }
+        );
+
+        dialog.afterClosed().subscribe({
+          complete: () => this.pageF = 1
+        })
       }
-    );
+    });
   }
 
   load(): void {

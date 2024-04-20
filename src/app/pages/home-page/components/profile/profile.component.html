@@ -17,11 +17,11 @@
   <div class="follow-box">
     <span class="follow-info" (click)="openFollowingDialog()">
       Following:
-      <p class="enphasis" >{{user().allFollowing.length}}</p>
+      <p class="enphasis" >{{user().totalFollowing}}</p>
     </span>
     <span class="follow-info" (click)="openFollowersDialog()">
       Followers:
-      <p class="enphasis" >{{user().allFollowers.length}}</p>
+      <p class="enphasis" >{{user().totalFollowers}}</p>
     </span>
   </div>
 </header>

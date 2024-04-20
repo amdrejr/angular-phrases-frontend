@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, WritableSignal, signal } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Page } from '../../models/page';
 import { User } from '../../models/user';
 
 @Injectable({
@@ -12,8 +13,9 @@ export class UserDataService {
     username: 'loading...',
     id: 0,
     phrases: [],
-    allFollowers: [],
-    allFollowing: []
+    totalFollowers: 0,
+    totalFollowing: 0,
+    isIFollowing: false,
   });
 
   constructor(private http: HttpClient) { }
@@ -47,6 +49,26 @@ export class UserDataService {
     return this.http.put<boolean>(
       this.url + '/' + id + '/follow',
       {},
+      {headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }}
+    )
+  }
+
+  public requestFollowers = (id: number): Observable<Page<{id: number, username: string}>> => {
+    return this.http.get<Page<{id: number, username: string}>>(
+      `${this.url}/followers/${id}`,
+      {headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }}
+    )
+  }
+
+  public requestFollowing = (id: number): Observable<Page<{id: number, username: string}>> => {
+    return this.http.get<Page<{id: number, username: string}>>(
+      `${this.url}/following/${id}`,
       {headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + localStorage.getItem('token')

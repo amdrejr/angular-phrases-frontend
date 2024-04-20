@@ -35,16 +35,6 @@ export class PostFormComponent {
       author: { id: 0, username: '' },
     }
 
-    // this.phraseDataService.createPhrase(phrase).subscribe({
-    //   next: (data) => {
-    //     this.notificationService.openNotification('Phrase posted!');
-    //     this.userDataService.me().phrases.push(data);
-    //   },
-    //   error: (err) => {
-    //     console.error('Error:', err);
-    //   }
-    // });
-
     this.phraseDataService.createPhrase(phrase);
 
     this.close();
