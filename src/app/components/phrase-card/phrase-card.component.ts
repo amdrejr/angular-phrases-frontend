@@ -37,9 +37,7 @@ export class PhraseCardComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
-  ngOnInit(): void {
-    console.log("phrase:", this.phrase)
-  }
+  ngOnInit(): void { }
 
   redirectToUser(): void {
     console.log("redirectToUser")
@@ -51,20 +49,18 @@ export class PhraseCardComponent implements OnInit {
   }
 
   usersLikedBox() {
-    this.phraseDataService.requestWhoLiked(this.phrase.id).subscribe({
-      next: (users) => {
-        this.dialog.open(
-          UsersBoxDialogComponent,
-          {
-            data: {
-              title: 'Users liked',
-              array: users,
-              noContent: 'No users liked this phrase'
-            }
-          }
-        );
+    this.dialog.open(
+      UsersBoxDialogComponent,
+      {
+        data: {
+          title: 'Users liked',
+          noContent: 'No users liked this phrase',
+          idContent: this.phrase.id,
+          requestFunc: this.phraseDataService.requestWhoLiked.bind(this.phraseDataService)
+          // bind para manter o contexto do this deste service e não do boxDialogComponent
+        }
       }
-    });
+    );
   }
 
   get dateFormatted(): string {
@@ -102,7 +98,13 @@ export class PhraseCardComponent implements OnInit {
   }
 
   like(): void {
-    this.phraseDataService.likePhrase(this.phrase.id).then(phrase => this.phrase = phrase);
+    this.phraseDataService.likePhrase(this.phrase.id).then(phrase => {
+      this.phrase = phrase
+      this.phraseDataService.allPhrases.update((phrases) =>
+        phrases.map(p => p.id === this.phrase.id ? phrase : p)
+      );
+    });
+
   }
 
 }

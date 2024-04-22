@@ -9,10 +9,11 @@ export class NotificationService {
 
   constructor(private dialog: MatDialog) {}
 
-  openNotification(message: string, durationMs: number = 5000): void {
+  openNotification(message: string, durationMs: number = 1500): void {
     const dialogRef = this.dialog.open(NotificationDialogComponent, {
       data: { message },
       hasBackdrop: false,
+      closeOnNavigation: true,
     });
 
     // Fecha o dialog após a duração especificada

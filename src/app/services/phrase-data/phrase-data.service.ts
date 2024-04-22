@@ -105,40 +105,17 @@ export class PhraseDataService {
     )
   }
 
-
-
-  private requestMyPhrases(): void {
-    this.http.get<Page<Phrase>>(
-      this.url + '/my-phrases',
-      { headers: {'Content-Type': 'application/json',
-                  'Authorization': 'Bearer ' + localStorage.getItem('token')}
-      }
-    ).subscribe(
-      (page) => {
-        this.myPhrases.set(page.content);
-      }
-    );
-  }
-
-  private requestFollowingPhrases(): void {
-    this.http.get<Page<Phrase>>(
-      this.url + '/following',
-      { headers: {'Content-Type': 'application/json',
-                  'Authorization': 'Bearer ' + localStorage.getItem('token')}
-      }
-    ).subscribe(
-      (page) => {
-        this.followingPhrases.set(page.content);
-      }
-    );
-  }
-
-    public requestWhoLiked(phraseId: number): Observable<{username: string, id: number}[]> {
-    return this.http.get<{username: string, id: number}[]>(
+  public requestWhoLiked(phraseId: number, pageNumber: number = 0): Observable<Page<{username: string, id: number}>> {
+    return this.http.get<Page<{username: string, id: number}>>(
       `${this.url}/who-liked/${phraseId}`,
-      { headers: {'Content-Type': 'application/json',
-                  'Authorization': 'Bearer ' + localStorage.getItem('token')}
-      });
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        params: {page: pageNumber.toString(), size: '10'}
+      }
+    );
   };
 
   async likePhrase(phraseId: number) {

@@ -33,9 +33,6 @@ export class UserProfileComponent  implements OnInit {
   totalLikes = ()=> this.userPhrases.reduce((acc, phrase) => acc + phrase.likes, 0);
   isFollowing:boolean = false;
 
-  pageF: number = 1;
-  sizeF: number = 10;
-
   constructor(
     private userDataService: UserDataService,
     private phraseDataService: PhraseDataService,
@@ -66,45 +63,31 @@ export class UserProfileComponent  implements OnInit {
   }
 
   openFollowingDialog():void {
-    this.userDataService.requestFollowing(this.user.id).subscribe({
-      next: (users) => {
-        const dialog = this.dialog.open(
-          UsersBoxDialogComponent,
-          {
-            data: {
-              title: 'Following',
-              array: users.content,
-              noContent: 'No users followed'
-            }
-          }
-        );
-
-        dialog.afterClosed().subscribe({
-          complete: () => this.pageF = 1
-        })
+    const dialog = this.dialog.open(
+      UsersBoxDialogComponent,
+      {
+        data: {
+          title: 'Following',
+          idContent: this.user.id,
+          requestFunc: this.userDataService.requestFollowing.bind(this.userDataService),
+          noContent: 'No users followed'
+        }
       }
-    });
+    );
   }
 
   openFollowersDialog():void {
-    this.userDataService.requestFollowers(this.user.id).subscribe({
-      next: (users) => {
-        const dialog = this.dialog.open(
-          UsersBoxDialogComponent,
-          {
-            data: {
-              title: 'Followers',
-              array: users.content,
-              noContent: 'No followers'
-            }
-          }
-        );
-
-        dialog.afterClosed().subscribe({
-          complete: () => this.pageF = 1
-        })
+    const dialog = this.dialog.open(
+      UsersBoxDialogComponent,
+      {
+        data: {
+          title: 'Followers',
+          idContent: this.user.id,
+          requestFunc: this.userDataService.requestFollowers.bind(this.userDataService),
+          noContent: 'No followers'
+        }
       }
-    });
+    );
   }
 
   followUser(): void {

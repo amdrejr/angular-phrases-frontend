@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  justify-content: center;
   background-color: var(--black-second);
   width: 220px;
-  max-height: 400px;
-  padding: 10px;
+  max-height: 450px;
+  overflow-y: auto;
+  padding: 15px;
 }
 
 .card {
@@ -43,4 +43,17 @@ span {
 
 .no-content {
   text-align: center;
+}
+
+.btn-load {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+  border-radius: 20px;
+  background-color: var(--black-third);
+  border: 1px inset var(--secondary-color);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }

@@ -6,6 +6,7 @@ import { InputCheckboxComponent } from '../../components/input-checkbox/input-ch
 import { InputTextComponent } from '../../components/input-text/input-text.component';
 import { LogoTextComponent } from '../../components/logo-text/logo-text.component';
 import { TextButtonComponent } from '../../components/text-button/text-button.component';
+import { customErrorException } from '../../exceptions/customErrorException';
 import { LoginService } from '../../services/login-service/login.service';
 import { UserDataService } from '../../services/user-data-service/user-data.service';
 
@@ -52,6 +53,10 @@ export class LoginPageComponent {
       },
       complete: () => {
         this.router.navigate(['/home']);
+      },
+      error: (error) => {
+        this.errorMessage = error.error.error;
+        throw new customErrorException('Login failed', error.error);
       }
     });
   }

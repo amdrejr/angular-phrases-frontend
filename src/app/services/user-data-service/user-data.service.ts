@@ -56,23 +56,29 @@ export class UserDataService {
     )
   }
 
-  public requestFollowers = (id: number): Observable<Page<{id: number, username: string}>> => {
+  public requestFollowers = (id: number, pageNumber: number): Observable<Page<{id: number, username: string}>> => {
     return this.http.get<Page<{id: number, username: string}>>(
       `${this.url}/followers/${id}`,
-      {headers: {
+      {
+        headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + localStorage.getItem('token')
-      }}
+      },
+      params: {page: pageNumber.toString(), size: '10'}
+    }
     )
   }
 
-  public requestFollowing = (id: number): Observable<Page<{id: number, username: string}>> => {
+  public requestFollowing = (id: number, pageNumber: number): Observable<Page<{id: number, username: string}>> => {
     return this.http.get<Page<{id: number, username: string}>>(
       `${this.url}/following/${id}`,
-      {headers: {
+      {
+        headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + localStorage.getItem('token')
-      }}
+      },
+      params: {page: pageNumber.toString(), size: '10'}
+    }
     )
   }
 

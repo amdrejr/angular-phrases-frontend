@@ -24,3 +24,12 @@
   color: white;
   font-size: 1rem;
 }
+
+.notification-dialog .cdk-global-overlay-wrapper {
+  pointer-events: none;
+}
+
+.cdk-overlay-container, .cdk-overlay-backdrop {
+  background-color: red;
+  display: none;
+}
